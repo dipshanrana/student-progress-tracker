@@ -1,32 +1,6 @@
 ﻿@import "tailwindcss";
 
-/* Utility animations */
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.animate-spin {
-  animation: spin 1s linear infinite;
-}
-
-/* Responsive sidebar offset */
-.main-content {
-  margin-left: 0;
-  transition: margin-left 0.25s ease;
-  width: 100%;
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-@media (min-width: 1024px) {
-  .main-content {
-    margin-left: 240px;
-    width: calc(100vw - 240px);
-  }
-}
-
-@theme {
+:root {
   --color-primary: #6d28d9;
   --color-primary-dark: #4c1d95;
   --color-primary-light: #8b5cf6;
@@ -49,6 +23,30 @@
   --color-sidebar-active: #8b5cf6;
   
   --font-sans: "Inter", "system-ui", sans-serif;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.main-content {
+  margin-left: 0;
+  transition: margin-left 0.25s ease;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+@media (min-width: 1024px) {
+  .main-content {
+    margin-left: 240px;
+    width: calc(100vw - 240px);
+  }
 }
 
 * {
@@ -448,7 +446,6 @@ tr:hover td {
   transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Responsive mobile rules */
 @media (max-width: 640px) {
   td, th {
     padding: 10px 12px;
