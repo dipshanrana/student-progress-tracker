@@ -41,10 +41,15 @@
   overflow-x: hidden;
 }
 
+/* Hide element on desktop viewports */
 @media (min-width: 1024px) {
   .main-content {
     margin-left: 240px;
     width: calc(100vw - 240px);
+  }
+  
+  .hide-on-desktop {
+    display: none !important;
   }
 }
 

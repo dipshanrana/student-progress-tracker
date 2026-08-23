@@ -42,7 +42,7 @@ export function TopBar({ title, onMenuClick }: TopBarProps) {
             padding: "4px",
             borderRadius: "6px",
           }}
-          className="lg:hidden"
+          className="hide-on-desktop"
         >
           <Menu size={22} />
         </button>
