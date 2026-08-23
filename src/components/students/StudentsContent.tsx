@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
@@ -120,9 +120,9 @@ export function StudentsContent({ isAdmin }: { isAdmin: boolean }) {
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", flexWrap: "wrap", gap: "12px" }}>
         <div>
-          <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#0f172a" }}>
+          <h2 style={{ fontSize: "20px", fontWeight: 700, color: "var(--color-text-dark)" }}>
             All Students
-            <span style={{ fontSize: "14px", fontWeight: 500, color: "#64748b", marginLeft: "8px" }}>
+            <span style={{ fontSize: "14px", fontWeight: 500, color: "var(--color-text-muted)", marginLeft: "8px" }}>
               ({filtered.length})
             </span>
           </h2>
@@ -141,7 +141,7 @@ export function StudentsContent({ isAdmin }: { isAdmin: boolean }) {
       <div
         style={{
           background: "white",
-          border: "1px solid #e2e8f0",
+          border: "1px solid var(--color-border)",
           borderRadius: "12px",
           padding: "14px 16px",
           marginBottom: "16px",
@@ -161,7 +161,7 @@ export function StudentsContent({ isAdmin }: { isAdmin: boolean }) {
             style={{ paddingLeft: "34px" }}
           />
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "#64748b", fontSize: "14px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--color-text-muted)", fontSize: "14px" }}>
           <SlidersHorizontal size={16} />
           <span>Filters:</span>
         </div>
@@ -202,9 +202,9 @@ export function StudentsContent({ isAdmin }: { isAdmin: boolean }) {
           <TableSkeleton rows={6} />
         ) : filtered.length === 0 ? (
           <div style={{ padding: "60px 24px", textAlign: "center" }}>
-            <div style={{ fontSize: "40px", marginBottom: "12px" }}>ðŸ‘¥</div>
-            <h3 style={{ fontWeight: 700, color: "#0f172a", marginBottom: "6px" }}>No students found</h3>
-            <p style={{ color: "#64748b", fontSize: "14px" }}>
+            <div style={{ fontSize: "48px", marginBottom: "12px", color: "var(--color-border)" }}>&#128269;</div>
+            <h3 style={{ fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "6px" }}>No students found</h3>
+            <p style={{ color: "var(--color-text-muted)", fontSize: "14px" }}>
               {isAdmin ? "Add your first student to start tracking progress." : "No students match your filters."}
             </p>
           </div>
@@ -246,14 +246,14 @@ export function StudentsContent({ isAdmin }: { isAdmin: boolean }) {
               {filtered.map((s) => (
                 <tr key={s.id}>
                   <td>
-                    <span style={{ fontWeight: 600, color: "#4f46e5" }}>#{s.rollNumber}</span>
+                    <span style={{ fontWeight: 600, color: "var(--color-primary)" }}>#{s.rollNumber}</span>
                   </td>
                   <td>
-                    <div style={{ fontWeight: 600, color: "#0f172a" }}>{s.fullName}</div>
+                    <div style={{ fontWeight: 600, color: "var(--color-text-dark)" }}>{s.fullName}</div>
                     {s.gender && <div style={{ fontSize: "12px", color: "#94a3b8" }}>{s.gender}</div>}
                   </td>
                   <td>
-                    <span style={{ background: "#ede9fe", color: "#4f46e5", padding: "2px 8px", borderRadius: "6px", fontSize: "13px", fontWeight: 600 }}>
+                    <span style={{ background: "rgba(109, 40, 217, 0.1)", color: "var(--color-primary)", padding: "2px 8px", borderRadius: "6px", fontSize: "13px", fontWeight: 600 }}>
                       {s.className}-{s.section}
                     </span>
                   </td>
@@ -279,20 +279,20 @@ export function StudentsContent({ isAdmin }: { isAdmin: boolean }) {
                   </td>
                   <td>
                     <div style={{ display: "flex", gap: "6px" }}>
-                      <Link href={`/students/${s.id}`} style={{ display: "inline-flex", alignItems: "center", padding: "5px 10px", background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: "6px", color: "#374151", fontSize: "13px", fontWeight: 500, gap: "4px", textDecoration: "none" }}>
+                      <Link href={`/students/${s.id}`} style={{ display: "inline-flex", alignItems: "center", padding: "5px 10px", background: "var(--color-bg-app)", border: "1px solid var(--color-border)", borderRadius: "6px", color: "#374151", fontSize: "13px", fontWeight: 500, gap: "4px", textDecoration: "none" }}>
                         <Eye size={14} /> View
                       </Link>
                       {isAdmin && (
                         <>
                           <button
                             onClick={() => { setEditStudent(s); setShowModal(true); }}
-                            style={{ display: "inline-flex", alignItems: "center", padding: "5px 10px", background: "#ede9fe", border: "1px solid #ddd6fe", borderRadius: "6px", color: "#4f46e5", fontSize: "13px", fontWeight: 500, gap: "4px", cursor: "pointer" }}
+                            style={{ display: "inline-flex", alignItems: "center", padding: "5px 10px", background: "rgba(109, 40, 217, 0.1)", border: "1px solid #ddd6fe", borderRadius: "6px", color: "var(--color-primary)", fontSize: "13px", fontWeight: 500, gap: "4px", cursor: "pointer" }}
                           >
                             <Pencil size={14} /> Edit
                           </button>
                           <button
                             onClick={() => setDeleteId(s.id)}
-                            style={{ display: "inline-flex", alignItems: "center", padding: "5px 10px", background: "#fee2e2", border: "1px solid #fecaca", borderRadius: "6px", color: "#dc2626", fontSize: "13px", fontWeight: 500, gap: "4px", cursor: "pointer" }}
+                            style={{ display: "inline-flex", alignItems: "center", padding: "5px 10px", background: "rgba(239, 68, 68, 0.1)", border: "1px solid rgba(239, 68, 68, 0.2)", borderRadius: "6px", color: "var(--color-danger)", fontSize: "13px", fontWeight: 500, gap: "4px", cursor: "pointer" }}
                           >
                             <Trash2 size={14} />
                           </button>

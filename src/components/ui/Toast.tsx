@@ -31,7 +31,7 @@ export function Toast({ message, type, onClose }: ToastProps) {
         maxWidth: "380px",
         animation: "slideIn 0.3s ease",
         background: type === "success" ? "#f0fdf4" : "#fef2f2",
-        border: `1px solid ${type === "success" ? "#bbf7d0" : "#fecaca"}`,
+        border: `1px solid ${type === "success" ? "#bbf7d0" : "rgba(239, 68, 68, 0.2)"}`,
         color: type === "success" ? "#166534" : "#991b1b",
       }}
     >

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState, useCallback } from "react";
 import { Plus, CheckCheck, X, Save, Loader2, Trash2, ChevronDown, ChevronUp } from "lucide-react";
@@ -106,7 +106,7 @@ export function HomeworkContent({ isAdmin }: { isAdmin: boolean }) {
     <div>
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", flexWrap: "wrap", gap: "12px" }}>
-        <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#0f172a" }}>
+        <h2 style={{ fontSize: "20px", fontWeight: 700, color: "var(--color-text-dark)" }}>
           Homework ({homeworks.length})
         </h2>
         {isAdmin && (
@@ -125,14 +125,14 @@ export function HomeworkContent({ isAdmin }: { isAdmin: boolean }) {
 
       {/* Homework List */}
       {loading ? (
-        <div style={{ textAlign: "center", padding: "60px", color: "#64748b" }}>
+        <div style={{ textAlign: "center", padding: "60px", color: "var(--color-text-muted)" }}>
           <Loader2 size={32} style={{ animation: "spin 1s linear infinite" }} />
         </div>
       ) : homeworks.length === 0 ? (
         <div className="card" style={{ padding: "60px", textAlign: "center" }}>
-          <div style={{ fontSize: "40px", marginBottom: "12px" }}>ðŸ“š</div>
-          <h3 style={{ fontWeight: 700, color: "#0f172a", marginBottom: "6px" }}>No homework yet</h3>
-          <p style={{ color: "#64748b", fontSize: "14px" }}>
+          <div style={{ fontSize: "40px", marginBottom: "12px" }}>📚</div>
+          <h3 style={{ fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "6px" }}>No homework yet</h3>
+          <p style={{ color: "var(--color-text-muted)", fontSize: "14px" }}>
             {isAdmin ? "Create your first homework assignment." : "No homework has been assigned yet."}
           </p>
         </div>
@@ -150,35 +150,35 @@ export function HomeworkContent({ isAdmin }: { isAdmin: boolean }) {
                 >
                   <div style={{ flex: 1, minWidth: "200px" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "4px" }}>
-                      <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0f172a" }}>{hw.title}</h3>
-                      <span style={{ background: "#ede9fe", color: "#4f46e5", padding: "2px 8px", borderRadius: "6px", fontSize: "12px", fontWeight: 600 }}>
+                      <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-dark)" }}>{hw.title}</h3>
+                      <span style={{ background: "rgba(109, 40, 217, 0.1)", color: "var(--color-primary)", padding: "2px 8px", borderRadius: "6px", fontSize: "12px", fontWeight: 600 }}>
                         {hw.subject}
                       </span>
-                      <span style={{ background: "#f1f5f9", color: "#64748b", padding: "2px 8px", borderRadius: "6px", fontSize: "12px", fontWeight: 600 }}>
+                      <span style={{ background: "var(--color-surface-hover)", color: "var(--color-text-muted)", padding: "2px 8px", borderRadius: "6px", fontSize: "12px", fontWeight: 600 }}>
                         {hw.className}-{hw.section}
                       </span>
                     </div>
-                    <div style={{ fontSize: "13px", color: "#64748b" }}>
-                      Assigned: {format(hw.assignedDate)} Â· Due: {format(hw.dueDate)} Â· By {hw.createdBy.name}
+                    <div style={{ fontSize: "13px", color: "var(--color-text-muted)" }}>
+                      Assigned: {format(hw.assignedDate)} • Due: {format(hw.dueDate)} • By {hw.createdBy.name}
                     </div>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
                     <div style={{ textAlign: "center" }}>
-                      <div style={{ fontSize: "20px", fontWeight: 800, color: rate >= 70 ? "#10b981" : rate >= 40 ? "#f59e0b" : "#ef4444" }}>
+                      <div style={{ fontSize: "20px", fontWeight: 800, color: rate >= 70 ? "var(--color-success)" : rate >= 40 ? "var(--color-warning)" : "var(--color-danger)" }}>
                         {rate}%
                       </div>
-                      <div style={{ fontSize: "11px", color: "#64748b" }}>Completion</div>
+                      <div style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Completion</div>
                     </div>
                     <div style={{ textAlign: "center" }}>
                       <div style={{ fontSize: "18px", fontWeight: 700, color: "#374151" }}>
                         {hw.homeworkRecords.filter((r) => r.status === "COMPLETED").length}/{hw.homeworkRecords.length}
                       </div>
-                      <div style={{ fontSize: "11px", color: "#64748b" }}>Students</div>
+                      <div style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Students</div>
                     </div>
                     {isAdmin && (
                       <button
                         onClick={(e) => { e.stopPropagation(); setDeleteId(hw.id); }}
-                        style={{ background: "#fee2e2", border: "none", color: "#dc2626", padding: "6px 10px", borderRadius: "6px", cursor: "pointer", display: "flex", alignItems: "center" }}
+                        style={{ background: "rgba(239, 68, 68, 0.1)", border: "none", color: "var(--color-danger)", padding: "6px 10px", borderRadius: "6px", cursor: "pointer", display: "flex", alignItems: "center" }}
                       >
                         <Trash2 size={14} />
                       </button>
@@ -188,31 +188,31 @@ export function HomeworkContent({ isAdmin }: { isAdmin: boolean }) {
                 </div>
 
                 {/* Progress bar */}
-                <div style={{ height: "4px", background: "#f1f5f9" }}>
-                  <div style={{ height: "100%", width: `${rate}%`, background: rate >= 70 ? "#10b981" : rate >= 40 ? "#f59e0b" : "#ef4444", transition: "width 0.4s" }} />
+                <div style={{ height: "4px", background: "var(--color-surface-hover)" }}>
+                  <div style={{ height: "100%", width: `${rate}%`, background: rate >= 70 ? "var(--color-success)" : rate >= 40 ? "var(--color-warning)" : "var(--color-danger)", transition: "width 0.4s" }} />
                 </div>
 
                 {/* Expanded student records */}
                 {isExpanded && hw.homeworkRecords.length > 0 && (
-                  <div style={{ borderTop: "1px solid #f1f5f9" }}>
+                  <div style={{ borderTop: "1px solid var(--color-surface-hover)" }}>
                     {isAdmin && (
-                      <div style={{ padding: "12px 20px", background: "#f8fafc", display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
+                      <div style={{ padding: "12px 20px", background: "var(--color-bg-app)", display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
                         <button
                           onClick={() => markAll(hw, "COMPLETED")}
-                          style={{ display: "flex", alignItems: "center", gap: "6px", padding: "6px 14px", background: "#d1fae5", border: "1px solid #a7f3d0", borderRadius: "6px", color: "#065f46", fontSize: "13px", fontWeight: 600, cursor: "pointer" }}
+                          style={{ display: "flex", alignItems: "center", gap: "6px", padding: "6px 14px", background: "rgba(16, 185, 129, 0.15)", border: "1px solid #a7f3d0", borderRadius: "6px", color: "#065f46", fontSize: "13px", fontWeight: 600, cursor: "pointer" }}
                         >
                           <CheckCheck size={14} /> Mark All Completed
                         </button>
                         <button
                           onClick={() => markAll(hw, "NOT_COMPLETED")}
-                          style={{ display: "flex", alignItems: "center", gap: "6px", padding: "6px 14px", background: "#fee2e2", border: "1px solid #fecaca", borderRadius: "6px", color: "#991b1b", fontSize: "13px", fontWeight: 600, cursor: "pointer" }}
+                          style={{ display: "flex", alignItems: "center", gap: "6px", padding: "6px 14px", background: "rgba(239, 68, 68, 0.1)", border: "1px solid rgba(239, 68, 68, 0.2)", borderRadius: "6px", color: "#991b1b", fontSize: "13px", fontWeight: 600, cursor: "pointer" }}
                         >
                           <X size={14} /> Mark All Not Completed
                         </button>
                         <button
                           onClick={() => saveRecords(hw)}
                           disabled={saveLoading}
-                          style={{ display: "flex", alignItems: "center", gap: "6px", padding: "6px 14px", background: "#4f46e5", border: "none", borderRadius: "6px", color: "white", fontSize: "13px", fontWeight: 600, cursor: "pointer", marginLeft: "auto" }}
+                          style={{ display: "flex", alignItems: "center", gap: "6px", padding: "6px 14px", background: "var(--color-primary)", border: "none", borderRadius: "6px", color: "white", fontSize: "13px", fontWeight: 600, cursor: "pointer", marginLeft: "auto" }}
                         >
                           {saveLoading ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
                           Save Changes
@@ -234,7 +234,7 @@ export function HomeworkContent({ isAdmin }: { isAdmin: boolean }) {
                             const status = recordEdits[r.student.id] ?? r.status;
                             return (
                               <tr key={r.id}>
-                                <td style={{ fontWeight: 600, color: "#4f46e5" }}>#{r.student.rollNumber}</td>
+                                <td style={{ fontWeight: 600, color: "var(--color-primary)" }}>#{r.student.rollNumber}</td>
                                 <td style={{ fontWeight: 600 }}>{r.student.fullName}</td>
                                 <td>
                                   {isAdmin ? (
@@ -250,11 +250,11 @@ export function HomeworkContent({ isAdmin }: { isAdmin: boolean }) {
                                         cursor: "pointer",
                                         fontSize: "12px",
                                         fontWeight: 600,
-                                        background: status === "COMPLETED" ? "#d1fae5" : "#fee2e2",
+                                        background: status === "COMPLETED" ? "rgba(16, 185, 129, 0.15)" : "rgba(239, 68, 68, 0.1)",
                                         color: status === "COMPLETED" ? "#065f46" : "#991b1b",
                                       }}
                                     >
-                                      {status === "COMPLETED" ? "âœ“ Completed" : "âœ— Not Completed"}
+                                      {status === "COMPLETED" ? "Completed" : "Not Completed"}
                                     </button>
                                   ) : (
                                     <span style={{
@@ -262,10 +262,10 @@ export function HomeworkContent({ isAdmin }: { isAdmin: boolean }) {
                                       borderRadius: "20px",
                                       fontSize: "12px",
                                       fontWeight: 600,
-                                      background: r.status === "COMPLETED" ? "#d1fae5" : "#fee2e2",
+                                      background: r.status === "COMPLETED" ? "rgba(16, 185, 129, 0.15)" : "rgba(239, 68, 68, 0.1)",
                                       color: r.status === "COMPLETED" ? "#065f46" : "#991b1b",
                                     }}>
-                                      {r.status === "COMPLETED" ? "âœ“ Completed" : "âœ— Not Completed"}
+                                      {r.status === "COMPLETED" ? "Completed" : "Not Completed"}
                                     </span>
                                   )}
                                 </td>
@@ -329,12 +329,12 @@ function CreateHomeworkModal({ onClose, onSave }: { onClose: () => void; onSave:
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: "520px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", padding: "20px 24px", borderBottom: "1px solid #f1f5f9" }}>
-          <h2 style={{ fontSize: "17px", fontWeight: 700, color: "#0f172a" }}>Create Homework</h2>
+        <div style={{ display: "flex", justifyContent: "space-between", padding: "20px 24px", borderBottom: "1px solid var(--color-surface-hover)" }}>
+          <h2 style={{ fontSize: "17px", fontWeight: 700, color: "var(--color-text-dark)" }}>Create Homework</h2>
           <button onClick={onClose} style={{ background: "none", border: "none", cursor: "pointer", color: "#94a3b8" }}><X size={20} /></button>
         </div>
         <form onSubmit={handleSubmit} style={{ padding: "20px 24px" }}>
-          {error && <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: "8px", padding: "10px", marginBottom: "14px", color: "#991b1b", fontSize: "14px" }}>{error}</div>}
+          {error && <div style={{ background: "#fef2f2", border: "1px solid rgba(239, 68, 68, 0.2)", borderRadius: "8px", padding: "10px", marginBottom: "14px", color: "#991b1b", fontSize: "14px" }}>{error}</div>}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "14px" }}>
             <div style={{ gridColumn: "1 / -1" }}>
               <label className="label">Title *</label>
@@ -373,7 +373,7 @@ function CreateHomeworkModal({ onClose, onSave }: { onClose: () => void; onSave:
               <textarea className="input" value={form.description} onChange={(e) => handleChange("description", e.target.value)} rows={2} style={{ resize: "vertical" }} placeholder="Instructions for students..." />
             </div>
           </div>
-          <div style={{ display: "flex", gap: "10px", justifyContent: "flex-end", marginTop: "20px", paddingTop: "16px", borderTop: "1px solid #f1f5f9" }}>
+          <div style={{ display: "flex", gap: "10px", justifyContent: "flex-end", marginTop: "20px", paddingTop: "16px", borderTop: "1px solid var(--color-surface-hover)" }}>
             <button type="button" className="btn-secondary" onClick={onClose} disabled={loading}>Cancel</button>
             <button type="submit" className="btn-primary" disabled={loading}>
               {loading ? <><Loader2 size={16} className="animate-spin" /> Creating...</> : <><Plus size={16} /> Create Homework</>}

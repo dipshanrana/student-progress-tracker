@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import {
   BarChart,
@@ -49,8 +49,8 @@ export function DashboardCharts({
     }));
 
   const homeworkPieData = [
-    { name: "Completed", value: homeworkCompletionRate, color: "#10b981" },
-    { name: "Not Completed", value: 100 - homeworkCompletionRate, color: "#e2e8f0" },
+    { name: "Completed", value: homeworkCompletionRate, color: "var(--color-success)" },
+    { name: "Not Completed", value: 100 - homeworkCompletionRate, color: "var(--color-border)" },
   ];
 
   const studentBarData = students
@@ -68,7 +68,7 @@ export function DashboardCharts({
       {/* Test Performance Over Time */}
       {testPerformanceChart.length > 0 && (
         <div className="card" style={{ padding: "20px", gridColumn: "1 / -1" }}>
-          <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0f172a", marginBottom: "4px" }}>
+          <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "4px" }}>
             Test Performance Trend
           </h3>
           <p style={{ fontSize: "13px", color: "#94a3b8", marginBottom: "16px" }}>
@@ -76,16 +76,16 @@ export function DashboardCharts({
           </p>
           <ResponsiveContainer width="100%" height={220}>
             <LineChart data={testPerformanceChart}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--color-surface-hover)" />
               <XAxis
                 dataKey="name"
-                tick={{ fontSize: 12, fill: "#64748b" }}
+                tick={{ fontSize: 12, fill: "var(--color-text-muted)" }}
                 tickLine={false}
                 axisLine={false}
               />
               <YAxis
                 domain={[0, 100]}
-                tick={{ fontSize: 12, fill: "#64748b" }}
+                tick={{ fontSize: 12, fill: "var(--color-text-muted)" }}
                 tickLine={false}
                 axisLine={false}
                 tickFormatter={(v) => `${v}%`}
@@ -94,16 +94,16 @@ export function DashboardCharts({
                 formatter={(value) => [`${value}%`, "Avg Score"]}
                 contentStyle={{
                   borderRadius: "10px",
-                  border: "1px solid #e2e8f0",
+                  border: "1px solid var(--color-border)",
                   boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
                 }}
               />
               <Line
                 type="monotone"
                 dataKey="average"
-                stroke="#4f46e5"
+                stroke="var(--color-primary)"
                 strokeWidth={2.5}
-                dot={{ fill: "#4f46e5", r: 4 }}
+                dot={{ fill: "var(--color-primary)", r: 4 }}
                 activeDot={{ r: 6 }}
               />
             </LineChart>
@@ -114,7 +114,7 @@ export function DashboardCharts({
       {/* Student Performance Bar Chart */}
       {studentBarData.length > 0 && (
         <div className="card" style={{ padding: "20px" }}>
-          <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0f172a", marginBottom: "4px" }}>
+          <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "4px" }}>
             Student Scores
           </h3>
           <p style={{ fontSize: "13px", color: "#94a3b8", marginBottom: "16px" }}>
@@ -122,16 +122,16 @@ export function DashboardCharts({
           </p>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={studentBarData} barSize={28}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--color-surface-hover)" vertical={false} />
               <XAxis
                 dataKey="name"
-                tick={{ fontSize: 11, fill: "#64748b" }}
+                tick={{ fontSize: 11, fill: "var(--color-text-muted)" }}
                 tickLine={false}
                 axisLine={false}
               />
               <YAxis
                 domain={[0, 100]}
-                tick={{ fontSize: 12, fill: "#64748b" }}
+                tick={{ fontSize: 12, fill: "var(--color-text-muted)" }}
                 tickLine={false}
                 axisLine={false}
                 tickFormatter={(v) => `${v}%`}
@@ -141,16 +141,16 @@ export function DashboardCharts({
                   `${value}%`,
                   name === "score" ? "Overall" : name === "tests" ? "Test Avg" : "Homework",
                 ]}
-                contentStyle={{ borderRadius: "10px", border: "1px solid #e2e8f0" }}
+                contentStyle={{ borderRadius: "10px", border: "1px solid var(--color-border)" }}
               />
               <Legend
                 formatter={(value) =>
                   value === "score" ? "Overall" : value === "tests" ? "Tests" : "Homework"
                 }
               />
-              <Bar dataKey="score" fill="#4f46e5" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="score" fill="var(--color-primary)" radius={[4, 4, 0, 0]} />
               <Bar dataKey="tests" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="homework" fill="#10b981" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="homework" fill="var(--color-success)" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -158,7 +158,7 @@ export function DashboardCharts({
 
       {/* Homework Completion Donut */}
       <div className="card" style={{ padding: "20px" }}>
-        <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0f172a", marginBottom: "4px" }}>
+        <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "4px" }}>
           Homework Completion
         </h3>
         <p style={{ fontSize: "13px", color: "#94a3b8", marginBottom: "8px" }}>
@@ -193,10 +193,10 @@ export function DashboardCharts({
                 textAlign: "center",
               }}
             >
-              <div style={{ fontSize: "24px", fontWeight: 800, color: "#0f172a" }}>
+              <div style={{ fontSize: "24px", fontWeight: 800, color: "var(--color-text-dark)" }}>
                 {homeworkCompletionRate}%
               </div>
-              <div style={{ fontSize: "11px", color: "#64748b" }}>completed</div>
+              <div style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>completed</div>
             </div>
           </div>
         </div>
@@ -204,31 +204,43 @@ export function DashboardCharts({
 
       {/* Performance Distribution */}
       {performanceData.length > 0 && (
-        <div className="card" style={{ padding: "20px" }}>
-          <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0f172a", marginBottom: "4px" }}>
+        <div className="card" style={{ padding: "20px", overflow: "hidden" }}>
+          <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "4px" }}>
             Performance Distribution
           </h3>
           <p style={{ fontSize: "13px", color: "#94a3b8", marginBottom: "16px" }}>
             Students by performance level
           </p>
-          <ResponsiveContainer width="100%" height={200}>
-            <PieChart>
+          <ResponsiveContainer width="100%" height={180}>
+            <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
               <Pie
                 data={performanceData}
                 cx="50%"
                 cy="50%"
-                outerRadius={75}
+                outerRadius={70}
                 dataKey="value"
-                label={({ name, value }) => `${name}: ${value}`}
-                labelLine={false}
+                isAnimationActive={false}
               >
                 {performanceData.map((entry, idx) => (
                   <Cell key={idx} fill={entry.color} />
                 ))}
               </Pie>
-              <Tooltip />
+              <Tooltip
+                formatter={(value, name) => [value, name]}
+                contentStyle={{ borderRadius: "10px", border: "1px solid var(--color-border)", fontSize: "13px" }}
+              />
             </PieChart>
           </ResponsiveContainer>
+          {/* Legend below chart */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px 12px", marginTop: "12px" }}>
+            {performanceData.map((d) => (
+              <div key={d.name} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: d.color, flexShrink: 0 }} />
+                <span style={{ fontSize: "12px", color: "var(--color-text-muted)", whiteSpace: "nowrap" }}>{d.name}</span>
+                <span style={{ fontSize: "12px", fontWeight: 700, color: "var(--color-text-dark)", marginLeft: "auto" }}>{d.value}</span>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

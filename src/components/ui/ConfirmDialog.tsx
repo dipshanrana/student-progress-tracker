@@ -29,7 +29,7 @@ export function ConfirmDialog({
         style={{ maxWidth: "420px", padding: "28px" }}
       >
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "16px" }}>
-          <h3 style={{ fontSize: "17px", fontWeight: 700, color: "#0f172a" }}>{title}</h3>
+          <h3 style={{ fontSize: "17px", fontWeight: 700, color: "var(--color-text-dark)" }}>{title}</h3>
           <button
             onClick={onCancel}
             style={{
@@ -42,7 +42,7 @@ export function ConfirmDialog({
             <X size={20} />
           </button>
         </div>
-        <p style={{ color: "#64748b", fontSize: "14px", lineHeight: 1.6, marginBottom: "24px" }}>
+        <p style={{ color: "var(--color-text-muted)", fontSize: "14px", lineHeight: 1.6, marginBottom: "24px" }}>
           {message}
         </p>
         <div style={{ display: "flex", gap: "10px", justifyContent: "flex-end" }}>
@@ -55,7 +55,7 @@ export function ConfirmDialog({
             disabled={loading}
             style={{
               opacity: loading ? 0.7 : 1,
-              background: "#dc2626",
+              background: "var(--color-danger)",
               color: "white",
               border: "none",
             }}

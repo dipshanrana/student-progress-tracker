@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
@@ -111,7 +111,7 @@ export function StudentProfile({ studentId, isAdmin }: { studentId: string; isAd
   if (loading) {
     return (
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "300px" }}>
-        <Loader2 size={32} style={{ animation: "spin 1s linear infinite", color: "#4f46e5" }} />
+        <Loader2 size={32} style={{ animation: "spin 1s linear infinite", color: "var(--color-primary)" }} />
       </div>
     );
   }
@@ -119,7 +119,7 @@ export function StudentProfile({ studentId, isAdmin }: { studentId: string; isAd
   if (!student) {
     return (
       <div style={{ textAlign: "center", padding: "60px" }}>
-        <p style={{ color: "#64748b" }}>Student not found.</p>
+        <p style={{ color: "var(--color-text-muted)" }}>Student not found.</p>
         <Link href="/students" className="btn-primary" style={{ display: "inline-flex", marginTop: "12px" }}>
           Back to Students
         </Link>
@@ -166,7 +166,7 @@ export function StudentProfile({ studentId, isAdmin }: { studentId: string; isAd
     <div>
       {/* Back + Print */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }} className="no-print">
-        <Link href="/students" style={{ display: "inline-flex", alignItems: "center", gap: "6px", color: "#64748b", textDecoration: "none", fontSize: "14px", fontWeight: 500 }}>
+        <Link href="/students" style={{ display: "inline-flex", alignItems: "center", gap: "6px", color: "var(--color-text-muted)", textDecoration: "none", fontSize: "14px", fontWeight: 500 }}>
           <ArrowLeft size={16} /> Back to Students
         </Link>
         <button onClick={() => window.print()} className="btn-secondary">
@@ -182,7 +182,7 @@ export function StudentProfile({ studentId, isAdmin }: { studentId: string; isAd
               width: "72px",
               height: "72px",
               borderRadius: "50%",
-              background: "linear-gradient(135deg, #4f46e5, #7c3aed)",
+              background: "linear-gradient(135deg, var(--color-primary), var(--color-primary-light))",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -196,36 +196,36 @@ export function StudentProfile({ studentId, isAdmin }: { studentId: string; isAd
           </div>
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap", marginBottom: "6px" }}>
-              <h2 style={{ fontSize: "22px", fontWeight: 800, color: "#0f172a" }}>{student.fullName}</h2>
+              <h2 style={{ fontSize: "22px", fontWeight: 800, color: "var(--color-text-dark)" }}>{student.fullName}</h2>
               <PerformanceBadge status={status} />
             </div>
-            <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", color: "#64748b", fontSize: "14px" }}>
+            <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", color: "var(--color-text-muted)", fontSize: "14px" }}>
               <span>Roll #{student.rollNumber}</span>
-              <span>â€¢</span>
+              <span>&middot;</span>
               <span>Class {student.className}-{student.section}</span>
-              {student.gender && <><span>â€¢</span><span>{student.gender}</span></>}
-              {student.guardianName && <><span>â€¢</span><span>Guardian: {student.guardianName}</span></>}
+              {student.gender && <><span>&middot;</span><span>{student.gender}</span></>}
+              {student.guardianName && <><span>&middot;</span><span>Guardian: {student.guardianName}</span></>}
             </div>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px", minWidth: "200px" }}>
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: "24px", fontWeight: 800, color: "#4f46e5" }}>{testAverage.toFixed(0)}%</div>
-              <div style={{ fontSize: "12px", color: "#64748b" }}>Test Avg</div>
+              <div style={{ fontSize: "24px", fontWeight: 800, color: "var(--color-primary)" }}>{testAverage.toFixed(0)}%</div>
+              <div style={{ fontSize: "12px", color: "var(--color-text-muted)" }}>Test Avg</div>
             </div>
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: "24px", fontWeight: 800, color: "#10b981" }}>{homeworkCompletion.toFixed(0)}%</div>
-              <div style={{ fontSize: "12px", color: "#64748b" }}>Homework</div>
+              <div style={{ fontSize: "24px", fontWeight: 800, color: "var(--color-success)" }}>{homeworkCompletion.toFixed(0)}%</div>
+              <div style={{ fontSize: "12px", color: "var(--color-text-muted)" }}>Homework</div>
             </div>
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: "24px", fontWeight: 800, color: "#0f172a" }}>{overallScore.toFixed(0)}%</div>
-              <div style={{ fontSize: "12px", color: "#64748b" }}>Overall</div>
+              <div style={{ fontSize: "24px", fontWeight: 800, color: "var(--color-text-dark)" }}>{overallScore.toFixed(0)}%</div>
+              <div style={{ fontSize: "12px", color: "var(--color-text-muted)" }}>Overall</div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Tabs */}
-      <div style={{ display: "flex", gap: "4px", marginBottom: "16px", background: "white", padding: "6px", borderRadius: "10px", border: "1px solid #e2e8f0", overflowX: "auto" }} className="no-print">
+      <div style={{ display: "flex", gap: "4px", marginBottom: "16px", background: "white", padding: "6px", borderRadius: "10px", border: "1px solid var(--color-border)", overflowX: "auto" }} className="no-print">
         {tabs.map((t) => (
           <button
             key={t.id}
@@ -242,25 +242,25 @@ export function StudentProfile({ studentId, isAdmin }: { studentId: string; isAd
       {activeTab === "overview" && (
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "16px" }}>
           <div className="card" style={{ padding: "20px" }}>
-            <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0f172a", marginBottom: "16px" }}>Performance Summary</h3>
+            <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "16px" }}>Performance Summary</h3>
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               <div>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px" }}>
-                  <span style={{ fontSize: "13px", color: "#64748b" }}>Test Average</span>
+                  <span style={{ fontSize: "13px", color: "var(--color-text-muted)" }}>Test Average</span>
                   <span style={{ fontSize: "13px", fontWeight: 700 }}>{testAverage.toFixed(1)}%</span>
                 </div>
                 <ScoreBar score={testAverage} />
               </div>
               <div>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px" }}>
-                  <span style={{ fontSize: "13px", color: "#64748b" }}>Homework Completion</span>
+                  <span style={{ fontSize: "13px", color: "var(--color-text-muted)" }}>Homework Completion</span>
                   <span style={{ fontSize: "13px", fontWeight: 700 }}>{homeworkCompletion.toFixed(1)}%</span>
                 </div>
                 <ScoreBar score={homeworkCompletion} />
               </div>
               <div>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px" }}>
-                  <span style={{ fontSize: "13px", color: "#64748b" }}>Overall Score (70% tests + 30% hw)</span>
+                  <span style={{ fontSize: "13px", color: "var(--color-text-muted)" }}>Overall Score (70% tests + 30% hw)</span>
                   <span style={{ fontSize: "13px", fontWeight: 700 }}>{overallScore.toFixed(1)}%</span>
                 </div>
                 <ScoreBar score={overallScore} />
@@ -268,7 +268,7 @@ export function StudentProfile({ studentId, isAdmin }: { studentId: string; isAd
             </div>
           </div>
           <div className="card" style={{ padding: "20px" }}>
-            <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0f172a", marginBottom: "16px" }}>Student Details</h3>
+            <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "16px" }}>Student Details</h3>
             <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
               {[
                 ["Class", `${student.className}-${student.section}`],
@@ -294,11 +294,11 @@ export function StudentProfile({ studentId, isAdmin }: { studentId: string; isAd
 
       {activeTab === "tests" && (
         <div className="card">
-          <div style={{ padding: "16px 20px", borderBottom: "1px solid #f1f5f9" }}>
-            <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0f172a" }}>Test History</h3>
+          <div style={{ padding: "16px 20px", borderBottom: "1px solid var(--color-surface-hover)" }}>
+            <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-dark)" }}>Test History</h3>
           </div>
           {student.testResults.length === 0 ? (
-            <div style={{ padding: "40px", textAlign: "center", color: "#64748b" }}>No test results yet.</div>
+            <div style={{ padding: "40px", textAlign: "center", color: "var(--color-text-muted)" }}>No test results yet.</div>
           ) : (
             <table>
               <thead>
@@ -315,7 +315,7 @@ export function StudentProfile({ studentId, isAdmin }: { studentId: string; isAd
                   const pct = calculatePercentage(r.obtainedMarks, r.test.fullMarks);
                   return (
                     <tr key={r.id}>
-                      <td style={{ color: "#64748b" }}>{format(r.test.testDate)}</td>
+                      <td style={{ color: "var(--color-text-muted)" }}>{format(r.test.testDate)}</td>
                       <td style={{ fontWeight: 600 }}>{r.test.name}</td>
                       <td>{r.test.subject}</td>
                       <td>{r.obtainedMarks} / {r.test.fullMarks}</td>
@@ -331,11 +331,11 @@ export function StudentProfile({ studentId, isAdmin }: { studentId: string; isAd
 
       {activeTab === "homework" && (
         <div className="card">
-          <div style={{ padding: "16px 20px", borderBottom: "1px solid #f1f5f9" }}>
-            <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0f172a" }}>Homework History</h3>
+          <div style={{ padding: "16px 20px", borderBottom: "1px solid var(--color-surface-hover)" }}>
+            <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-dark)" }}>Homework History</h3>
           </div>
           {student.homeworkRecords.length === 0 ? (
-            <div style={{ padding: "40px", textAlign: "center", color: "#64748b" }}>No homework records yet.</div>
+            <div style={{ padding: "40px", textAlign: "center", color: "var(--color-text-muted)" }}>No homework records yet.</div>
           ) : (
             <table>
               <thead>
@@ -350,10 +350,10 @@ export function StudentProfile({ studentId, isAdmin }: { studentId: string; isAd
               <tbody>
                 {student.homeworkRecords.map((r) => (
                   <tr key={r.id}>
-                    <td style={{ color: "#64748b" }}>{format(r.homework.assignedDate)}</td>
+                    <td style={{ color: "var(--color-text-muted)" }}>{format(r.homework.assignedDate)}</td>
                     <td style={{ fontWeight: 600 }}>{r.homework.title}</td>
                     <td>{r.homework.subject}</td>
-                    <td style={{ color: "#64748b" }}>{format(r.homework.dueDate)}</td>
+                    <td style={{ color: "var(--color-text-muted)" }}>{format(r.homework.dueDate)}</td>
                     <td>
                       <span
                         style={{
@@ -364,11 +364,11 @@ export function StudentProfile({ studentId, isAdmin }: { studentId: string; isAd
                           borderRadius: "20px",
                           fontSize: "12px",
                           fontWeight: 600,
-                          background: r.status === "COMPLETED" ? "#d1fae5" : "#fee2e2",
+                          background: r.status === "COMPLETED" ? "rgba(16, 185, 129, 0.15)" : "rgba(239, 68, 68, 0.1)",
                           color: r.status === "COMPLETED" ? "#065f46" : "#991b1b",
                         }}
                       >
-                        {r.status === "COMPLETED" ? "âœ“ Completed" : "âœ— Not Completed"}
+                        {r.status === "COMPLETED" ? "Completed" : "Not Completed"}
                       </span>
                     </td>
                   </tr>
@@ -383,33 +383,33 @@ export function StudentProfile({ studentId, isAdmin }: { studentId: string; isAd
         <div style={{ display: "grid", gap: "16px" }}>
           {testChartData.length > 0 && (
             <div className="card" style={{ padding: "20px" }}>
-              <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0f172a", marginBottom: "16px" }}>
+              <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "16px" }}>
                 Test Progress
               </h3>
               <ResponsiveContainer width="100%" height={240}>
                 <LineChart data={testChartData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                  <XAxis dataKey="name" tick={{ fontSize: 12, fill: "#64748b" }} tickLine={false} axisLine={false} />
-                  <YAxis domain={[0, 100]} tick={{ fontSize: 12, fill: "#64748b" }} tickFormatter={(v) => `${v}%`} tickLine={false} axisLine={false} />
-                  <Tooltip formatter={(v) => [`${v}%`, "Score"]} contentStyle={{ borderRadius: "10px", border: "1px solid #e2e8f0" }} />
-                  <Line type="monotone" dataKey="percentage" stroke="#4f46e5" strokeWidth={2.5} dot={{ fill: "#4f46e5", r: 4 }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--color-surface-hover)" />
+                  <XAxis dataKey="name" tick={{ fontSize: 12, fill: "var(--color-text-muted)" }} tickLine={false} axisLine={false} />
+                  <YAxis domain={[0, 100]} tick={{ fontSize: 12, fill: "var(--color-text-muted)" }} tickFormatter={(v) => `${v}%`} tickLine={false} axisLine={false} />
+                  <Tooltip formatter={(v) => [`${v}%`, "Score"]} contentStyle={{ borderRadius: "10px", border: "1px solid var(--color-border)" }} />
+                  <Line type="monotone" dataKey="percentage" stroke="var(--color-primary)" strokeWidth={2.5} dot={{ fill: "var(--color-primary)", r: 4 }} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
           )}
           {homeworkChartData.length > 0 && (
             <div className="card" style={{ padding: "20px" }}>
-              <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0f172a", marginBottom: "16px" }}>
+              <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "16px" }}>
                 Homework Completion by Month
               </h3>
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={homeworkChartData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                  <XAxis dataKey="month" tick={{ fontSize: 12, fill: "#64748b" }} tickLine={false} axisLine={false} />
-                  <YAxis tick={{ fontSize: 12, fill: "#64748b" }} tickLine={false} axisLine={false} />
-                  <Tooltip contentStyle={{ borderRadius: "10px", border: "1px solid #e2e8f0" }} />
-                  <Bar dataKey="completed" fill="#10b981" name="Completed" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="notCompleted" fill="#fecaca" name="Not Completed" radius={[4, 4, 0, 0]} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--color-surface-hover)" vertical={false} />
+                  <XAxis dataKey="month" tick={{ fontSize: 12, fill: "var(--color-text-muted)" }} tickLine={false} axisLine={false} />
+                  <YAxis tick={{ fontSize: 12, fill: "var(--color-text-muted)" }} tickLine={false} axisLine={false} />
+                  <Tooltip contentStyle={{ borderRadius: "10px", border: "1px solid var(--color-border)" }} />
+                  <Bar dataKey="completed" fill="var(--color-success)" name="Completed" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="notCompleted" fill="rgba(239, 68, 68, 0.2)" name="Not Completed" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -419,7 +419,7 @@ export function StudentProfile({ studentId, isAdmin }: { studentId: string; isAd
 
       {activeTab === "remarks" && (
         <div className="card" style={{ padding: "20px" }}>
-          <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0f172a", marginBottom: "16px" }}>Teacher Remarks</h3>
+          <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "16px" }}>Teacher Remarks</h3>
           {isAdmin && (
             <div style={{ marginBottom: "20px", display: "flex", gap: "10px" }}>
               <textarea
@@ -442,14 +442,14 @@ export function StudentProfile({ studentId, isAdmin }: { studentId: string; isAd
             </div>
           )}
           {student.remarks.length === 0 ? (
-            <div style={{ textAlign: "center", padding: "30px", color: "#64748b" }}>No remarks yet.</div>
+            <div style={{ textAlign: "center", padding: "30px", color: "var(--color-text-muted)" }}>No remarks yet.</div>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               {student.remarks.map((r) => (
-                <div key={r.id} style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: "10px", padding: "14px 16px" }}>
+                <div key={r.id} style={{ background: "var(--color-bg-app)", border: "1px solid var(--color-border)", borderRadius: "10px", padding: "14px 16px" }}>
                   <p style={{ color: "#374151", fontSize: "14px", lineHeight: 1.6, marginBottom: "8px" }}>{r.remark}</p>
                   <div style={{ fontSize: "12px", color: "#94a3b8" }}>
-                    By {r.createdBy.name} Â· {format(r.createdAt)}
+                    By {r.createdBy.name} &middot; {format(r.createdAt)}
                   </div>
                 </div>
               ))}

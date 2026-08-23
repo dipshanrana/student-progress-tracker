@@ -95,10 +95,10 @@ export function StudentModal({ student, onClose, onSave }: StudentModalProps) {
             justifyContent: "space-between",
             alignItems: "center",
             padding: "20px 24px",
-            borderBottom: "1px solid #f1f5f9",
+            borderBottom: "1px solid var(--color-surface-hover)",
           }}
         >
-          <h2 style={{ fontSize: "17px", fontWeight: 700, color: "#0f172a" }}>
+          <h2 style={{ fontSize: "17px", fontWeight: 700, color: "var(--color-text-dark)" }}>
             {isEdit ? "Edit Student" : "Add New Student"}
           </h2>
           <button onClick={onClose} style={{ background: "none", border: "none", cursor: "pointer", color: "#94a3b8" }}>
@@ -108,7 +108,7 @@ export function StudentModal({ student, onClose, onSave }: StudentModalProps) {
 
         <form onSubmit={handleSubmit} style={{ padding: "20px 24px" }}>
           {error && (
-            <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: "8px", padding: "10px 14px", marginBottom: "16px", color: "#991b1b", fontSize: "14px" }}>
+            <div style={{ background: "#fef2f2", border: "1px solid rgba(239, 68, 68, 0.2)", borderRadius: "8px", padding: "10px 14px", marginBottom: "16px", color: "#991b1b", fontSize: "14px" }}>
               {error}
             </div>
           )}
@@ -152,7 +152,7 @@ export function StudentModal({ student, onClose, onSave }: StudentModalProps) {
             ))}
           </div>
 
-          <div style={{ display: "flex", gap: "10px", justifyContent: "flex-end", marginTop: "20px", paddingTop: "16px", borderTop: "1px solid #f1f5f9" }}>
+          <div style={{ display: "flex", gap: "10px", justifyContent: "flex-end", marginTop: "20px", paddingTop: "16px", borderTop: "1px solid var(--color-surface-hover)" }}>
             <button type="button" className="btn-secondary" onClick={onClose} disabled={loading}>
               Cancel
             </button>

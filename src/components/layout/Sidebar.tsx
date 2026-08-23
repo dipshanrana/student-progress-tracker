@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -64,7 +64,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           left: 0,
           height: "100vh",
           width: "240px",
-          background: "linear-gradient(180deg, #0f172a 0%, #1e293b 100%)",
+          background: "linear-gradient(180deg, var(--color-text-dark) 0%, var(--color-text-dark) 100%)",
           borderRight: "1px solid rgba(255,255,255,0.06)",
           display: "flex",
           flexDirection: "column",
@@ -98,7 +98,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                 flexShrink: 0,
               }}
             >
-              <GraduationCap size={20} color="#818cf8" />
+              <GraduationCap size={20} color="var(--color-primary-light)" />
             </div>
             <div>
               <div style={{ color: "white", fontSize: "14px", fontWeight: 700, lineHeight: 1.2 }}>
@@ -109,16 +109,16 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           </div>
           <button
             onClick={onClose}
+            aria-label="Close sidebar"
             style={{
               background: "none",
               border: "none",
-              color: "#475569",
+              color: "#94a3b8",
               cursor: "pointer",
-              display: "none",
             }}
-            className="lg:hidden block"
+            className="lg:hidden"
           >
-            <X size={18} />
+            <X size={20} />
           </button>
         </div>
 
@@ -138,8 +138,8 @@ export function Sidebar({ open, onClose }: SidebarProps) {
               height: "36px",
               borderRadius: "50%",
               background: isAdmin
-                ? "linear-gradient(135deg, #4f46e5, #7c3aed)"
-                : "linear-gradient(135deg, #0ea5e9, #0284c7)",
+                ? "linear-gradient(135deg, var(--color-primary), var(--color-primary-light))"
+                : "linear-gradient(135deg, var(--color-secondary), #0284c7)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -154,7 +154,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           <div style={{ overflow: "hidden" }}>
             <div
               style={{
-                color: "#e2e8f0",
+                color: "var(--color-border)",
                 fontSize: "13px",
                 fontWeight: 600,
                 whiteSpace: "nowrap",
@@ -167,7 +167,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
             <div
               style={{
                 fontSize: "11px",
-                color: isAdmin ? "#818cf8" : "#38bdf8",
+                color: isAdmin ? "var(--color-primary-light)" : "#38bdf8",
                 fontWeight: 600,
               }}
             >
@@ -206,9 +206,9 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                   padding: "9px 12px",
                   borderRadius: "8px",
                   marginBottom: "2px",
-                  color: isActive ? "#818cf8" : "#64748b",
+                  color: isActive ? "var(--color-primary-light)" : "var(--color-text-muted)",
                   background: isActive ? "rgba(79,70,229,0.15)" : "transparent",
-                  borderLeft: isActive ? "3px solid #4f46e5" : "3px solid transparent",
+                  borderLeft: isActive ? "3px solid var(--color-primary)" : "3px solid transparent",
                   textDecoration: "none",
                   fontSize: "14px",
                   fontWeight: 500,
@@ -245,9 +245,9 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                   gap: "10px",
                   padding: "9px 12px",
                   borderRadius: "8px",
-                  color: pathname === "/settings" ? "#818cf8" : "#64748b",
+                  color: pathname === "/settings" ? "var(--color-primary-light)" : "var(--color-text-muted)",
                   background: pathname === "/settings" ? "rgba(79,70,229,0.15)" : "transparent",
-                  borderLeft: pathname === "/settings" ? "3px solid #4f46e5" : "3px solid transparent",
+                  borderLeft: pathname === "/settings" ? "3px solid var(--color-primary)" : "3px solid transparent",
                   textDecoration: "none",
                   fontSize: "14px",
                   fontWeight: 500,
@@ -271,7 +271,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
               gap: "10px",
               padding: "9px 12px",
               borderRadius: "8px",
-              color: "#64748b",
+              color: "var(--color-text-muted)",
               background: "transparent",
               border: "none",
               cursor: "pointer",
@@ -286,7 +286,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = "transparent";
-              e.currentTarget.style.color = "#64748b";
+              e.currentTarget.style.color = "var(--color-text-muted)";
             }}
           >
             <LogOut size={18} />

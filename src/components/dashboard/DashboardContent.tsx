@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState, useCallback } from "react";
 import {
@@ -68,12 +68,12 @@ function StatCard({ title, value, subtitle, icon, iconBg, iconColor, trend }: St
           {icon}
         </div>
         {trend && (
-          <span style={{ fontSize: "12px", color: "#10b981", fontWeight: 600, background: "#d1fae5", padding: "2px 8px", borderRadius: "20px" }}>
+          <span style={{ fontSize: "12px", color: "var(--color-success)", fontWeight: 600, background: "rgba(16, 185, 129, 0.15)", padding: "2px 8px", borderRadius: "20px" }}>
             {trend}
           </span>
         )}
       </div>
-      <div style={{ fontSize: "28px", fontWeight: 800, color: "#0f172a", lineHeight: 1 }}>
+      <div style={{ fontSize: "28px", fontWeight: 800, color: "var(--color-text-dark)", lineHeight: 1 }}>
         {value}
       </div>
       <div style={{ fontSize: "14px", fontWeight: 600, color: "#374151", marginTop: "4px" }}>
@@ -135,16 +135,16 @@ export function DashboardContent({ userRole }: { userRole: string }) {
           value={summary.totalStudents}
           subtitle="Enrolled students"
           icon={<Users size={22} />}
-          iconBg="#ede9fe"
-          iconColor="#7c3aed"
+          iconBg="rgba(109, 40, 217, 0.1)"
+          iconColor="var(--color-primary-light)"
         />
         <StatCard
           title="Homework Completion"
           value={`${summary.homeworkCompletionRate}%`}
           subtitle="Overall completion rate"
           icon={<BookOpen size={22} />}
-          iconBg="#d1fae5"
-          iconColor="#059669"
+          iconBg="rgba(16, 185, 129, 0.15)"
+          iconColor="var(--color-success)"
         />
         <StatCard
           title="Average Score"
@@ -159,8 +159,8 @@ export function DashboardContent({ userRole }: { userRole: string }) {
           value={summary.totalTests}
           subtitle="Tests conducted"
           icon={<ClipboardList size={22} />}
-          iconBg="#fef3c7"
-          iconColor="#d97706"
+          iconBg="rgba(245, 158, 11, 0.15)"
+          iconColor="var(--color-warning)"
         />
       </div>
 
@@ -186,8 +186,8 @@ export function DashboardContent({ userRole }: { userRole: string }) {
         {topStudent && (
           <div className="card" style={{ padding: "20px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "16px" }}>
-              <Trophy size={18} color="#f59e0b" />
-              <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0f172a" }}>Top Performer</h3>
+              <Trophy size={18} color="var(--color-warning)" />
+              <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-dark)" }}>Top Performer</h3>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
               <div
@@ -195,7 +195,7 @@ export function DashboardContent({ userRole }: { userRole: string }) {
                   width: "48px",
                   height: "48px",
                   borderRadius: "50%",
-                  background: "linear-gradient(135deg, #f59e0b, #d97706)",
+                  background: "linear-gradient(135deg, var(--color-warning), var(--color-warning))",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -207,14 +207,14 @@ export function DashboardContent({ userRole }: { userRole: string }) {
                 {topStudent.fullName.charAt(0)}
               </div>
               <div>
-                <div style={{ fontWeight: 700, color: "#0f172a", fontSize: "15px" }}>
+                <div style={{ fontWeight: 700, color: "var(--color-text-dark)", fontSize: "15px" }}>
                   {topStudent.fullName}
                 </div>
-                <div style={{ color: "#64748b", fontSize: "13px" }}>
-                  Roll #{topStudent.rollNumber} Ã‚Â· Class {topStudent.className}-{topStudent.section}
+                <div style={{ color: "var(--color-text-muted)", fontSize: "13px" }}>
+                  Roll #{topStudent.rollNumber} &middot; Class {topStudent.className}-{topStudent.section}
                 </div>
                 <div style={{ marginTop: "6px", display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span style={{ fontSize: "20px", fontWeight: 800, color: "#10b981" }}>
+                  <span style={{ fontSize: "20px", fontWeight: 800, color: "var(--color-success)" }}>
                     {topStudent.overallScore.toFixed(0)}%
                   </span>
                   <PerformanceBadge status={topStudent.status} />
@@ -225,52 +225,57 @@ export function DashboardContent({ userRole }: { userRole: string }) {
         )}
 
         {/* Students Needing Attention */}
-        <div className="card" style={{ padding: "20px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "16px" }}>
-            <AlertTriangle size={18} color="#ef4444" />
-            <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0f172a" }}>
-              Needs Attention ({needingImprovement.length})
-            </h3>
+        <div className="card" style={{ padding: 0, overflow: "hidden", gridColumn: topStudent ? "auto" : "1 / -1" }}>
+          <div style={{ padding: "16px 20px", display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid var(--color-border)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <AlertTriangle size={18} color="var(--color-danger)" />
+              <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-dark)" }}>
+                Needs Attention ({needingImprovement.length})
+              </h3>
+            </div>
+            {needingImprovement.length > 0 && (
+              <a href="/students" style={{ fontSize: "13px", color: "var(--color-primary)", textDecoration: "none", fontWeight: 500 }}>View all &rarr;</a>
+            )}
           </div>
           {needingImprovement.length === 0 ? (
-            <p style={{ color: "#64748b", fontSize: "14px" }}>
-              Ã°Å¸Å½â€° All students are performing well!
-            </p>
+            <div style={{ padding: "32px 20px", textAlign: "center" }}>
+              <div style={{ fontSize: "32px", marginBottom: "8px" }}>&#127881;</div>
+              <p style={{ color: "var(--color-text-muted)", fontSize: "14px" }}>All students are performing well!</p>
+            </div>
           ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-              {needingImprovement.slice(0, 4).map((s) => (
-                <div
-                  key={s.id}
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    padding: "8px 12px",
-                    borderRadius: "8px",
-                    background: "#fef2f2",
-                    border: "1px solid #fecaca",
-                  }}
-                >
-                  <div>
-                    <div style={{ fontWeight: 600, color: "#0f172a", fontSize: "13px" }}>
-                      {s.fullName}
-                    </div>
-                    <div style={{ color: "#64748b", fontSize: "12px" }}>
-                      Class {s.className}-{s.section}
-                    </div>
-                  </div>
-                  <div style={{ textAlign: "right" }}>
-                    <div style={{ fontWeight: 700, color: "#dc2626", fontSize: "14px" }}>
-                      {s.overallScore.toFixed(0)}%
-                    </div>
-                    <PerformanceBadge status={s.status} />
-                  </div>
+            <div style={{ overflowX: "auto" }}>
+              <table style={{ minWidth: "400px" }}>
+                <thead>
+                  <tr>
+                    <th>Student</th>
+                    <th>Class</th>
+                    <th>Score</th>
+                    <th>Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {needingImprovement.slice(0, 5).map((s) => (
+                    <tr key={s.id}>
+                      <td style={{ fontWeight: 600 }}>{s.fullName}</td>
+                      <td style={{ color: "var(--color-text-muted)" }}>{s.className}-{s.section}</td>
+                      <td style={{ fontWeight: 700, color: s.overallScore < 50 ? "var(--color-danger)" : "var(--color-warning)" }}>
+                        {s.overallScore.toFixed(0)}%
+                      </td>
+                      <td><PerformanceBadge status={s.status} /></td>
+                      <td>
+                        <a href={`/students/${s.id}`} style={{ color: "var(--color-primary)", fontSize: "13px", textDecoration: "none", fontWeight: 500 }}>View</a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {needingImprovement.length > 5 && (
+                <div style={{ padding: "10px 20px", borderTop: "1px solid var(--color-border)" }}>
+                  <a href="/students" style={{ color: "#94a3b8", fontSize: "12px", textDecoration: "none" }}>
+                    +{needingImprovement.length - 5} more students need attention
+                  </a>
                 </div>
-              ))}
-              {needingImprovement.length > 4 && (
-                <p style={{ color: "#94a3b8", fontSize: "12px" }}>
-                  +{needingImprovement.length - 4} more students
-                </p>
               )}
             </div>
           )}

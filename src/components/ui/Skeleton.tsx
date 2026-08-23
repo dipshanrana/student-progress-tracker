@@ -10,7 +10,7 @@
         width,
         height,
         borderRadius: "6px",
-        background: "linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%)",
+        background: "linear-gradient(90deg, var(--color-surface-hover) 25%, var(--color-border) 50%, var(--color-surface-hover) 75%)",
         backgroundSize: "200% 100%",
         animation: "shimmer 1.5s infinite",
       }}
@@ -42,7 +42,7 @@ export function TableSkeleton({ rows = 5 }: { rows?: number }) {
             display: "flex",
             gap: "16px",
             padding: "14px 16px",
-            borderBottom: "1px solid #f1f5f9",
+            borderBottom: "1px solid var(--color-surface-hover)",
           }}
         >
           <Skeleton width="40px" height="14px" />

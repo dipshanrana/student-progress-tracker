@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState, useCallback } from "react";
 import { Plus, X, Save, Loader2, Trash2, ChevronDown, ChevronUp } from "lucide-react";
@@ -127,7 +127,7 @@ export function TestsContent({ isAdmin }: { isAdmin: boolean }) {
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", flexWrap: "wrap", gap: "12px" }}>
-        <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#0f172a" }}>Tests ({tests.length})</h2>
+        <h2 style={{ fontSize: "20px", fontWeight: 700, color: "var(--color-text-dark)" }}>Tests ({tests.length})</h2>
         {isAdmin && (
           <button className="btn-primary" onClick={() => setShowCreate(true)}>
             <Plus size={16} /> Create Test
@@ -143,14 +143,14 @@ export function TestsContent({ isAdmin }: { isAdmin: boolean }) {
       )}
 
       {loading ? (
-        <div style={{ textAlign: "center", padding: "60px", color: "#64748b" }}>
+        <div style={{ textAlign: "center", padding: "60px", color: "var(--color-text-muted)" }}>
           <Loader2 size={32} style={{ animation: "spin 1s linear infinite" }} />
         </div>
       ) : tests.length === 0 ? (
         <div className="card" style={{ padding: "60px", textAlign: "center" }}>
-          <div style={{ fontSize: "40px", marginBottom: "12px" }}>ðŸ“</div>
-          <h3 style={{ fontWeight: 700, color: "#0f172a", marginBottom: "6px" }}>No tests yet</h3>
-          <p style={{ color: "#64748b", fontSize: "14px" }}>
+          <div style={{ fontSize: "40px", marginBottom: "12px" }}>📝</div>
+          <h3 style={{ fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "6px" }}>No tests yet</h3>
+          <p style={{ color: "var(--color-text-muted)", fontSize: "14px" }}>
             {isAdmin ? "Create your first test." : "No tests have been created yet."}
           </p>
         </div>
@@ -169,31 +169,31 @@ export function TestsContent({ isAdmin }: { isAdmin: boolean }) {
                 >
                   <div style={{ flex: 1 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "4px", flexWrap: "wrap" }}>
-                      <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0f172a" }}>{test.name}</h3>
-                      <span style={{ background: "#ede9fe", color: "#4f46e5", padding: "2px 8px", borderRadius: "6px", fontSize: "12px", fontWeight: 600 }}>{test.subject}</span>
-                      <span style={{ background: "#f1f5f9", color: "#64748b", padding: "2px 8px", borderRadius: "6px", fontSize: "12px", fontWeight: 600 }}>{test.className}-{test.section}</span>
-                      <span style={{ background: "#fef3c7", color: "#92400e", padding: "2px 8px", borderRadius: "6px", fontSize: "12px", fontWeight: 600 }}>Full Marks: {test.fullMarks}</span>
+                      <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-dark)" }}>{test.name}</h3>
+                      <span style={{ background: "rgba(109, 40, 217, 0.1)", color: "var(--color-primary)", padding: "2px 8px", borderRadius: "6px", fontSize: "12px", fontWeight: 600 }}>{test.subject}</span>
+                      <span style={{ background: "var(--color-surface-hover)", color: "var(--color-text-muted)", padding: "2px 8px", borderRadius: "6px", fontSize: "12px", fontWeight: 600 }}>{test.className}-{test.section}</span>
+                      <span style={{ background: "rgba(245, 158, 11, 0.15)", color: "var(--color-warning)", padding: "2px 8px", borderRadius: "6px", fontSize: "12px", fontWeight: 600 }}>Full Marks: {test.fullMarks}</span>
                     </div>
-                    <div style={{ fontSize: "13px", color: "#64748b" }}>
-                      {format(test.testDate)} Â· By {test.createdBy.name}
-                      {test.description && ` Â· ${test.description}`}
+                    <div style={{ fontSize: "13px", color: "var(--color-text-muted)" }}>
+                      {format(test.testDate)} &middot; By {test.createdBy.name}
+                      {test.description && ` \u00b7 ${test.description}`}
                     </div>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
                     {avg && (
                       <div style={{ textAlign: "center" }}>
-                        <div style={{ fontSize: "20px", fontWeight: 800, color: "#4f46e5" }}>{avg}%</div>
-                        <div style={{ fontSize: "11px", color: "#64748b" }}>Class Avg</div>
+                        <div style={{ fontSize: "20px", fontWeight: 800, color: "var(--color-primary)" }}>{avg}%</div>
+                        <div style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Class Avg</div>
                       </div>
                     )}
                     <div style={{ textAlign: "center" }}>
                       <div style={{ fontSize: "18px", fontWeight: 700, color: "#374151" }}>{test.testResults.length}</div>
-                      <div style={{ fontSize: "11px", color: "#64748b" }}>Results</div>
+                      <div style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Results</div>
                     </div>
                     {isAdmin && (
                       <button
                         onClick={(e) => { e.stopPropagation(); setDeleteId(test.id); }}
-                        style={{ background: "#fee2e2", border: "none", color: "#dc2626", padding: "6px 10px", borderRadius: "6px", cursor: "pointer", display: "flex", alignItems: "center" }}
+                        style={{ background: "rgba(239, 68, 68, 0.1)", border: "none", color: "var(--color-danger)", padding: "6px 10px", borderRadius: "6px", cursor: "pointer", display: "flex", alignItems: "center" }}
                       >
                         <Trash2 size={14} />
                       </button>
@@ -203,9 +203,9 @@ export function TestsContent({ isAdmin }: { isAdmin: boolean }) {
                 </div>
 
                 {isExpanded && (
-                  <div style={{ borderTop: "1px solid #f1f5f9" }}>
+                  <div style={{ borderTop: "1px solid var(--color-surface-hover)" }}>
                     {isAdmin && students.length > 0 && (
-                      <div style={{ padding: "12px 20px", background: "#f8fafc", display: "flex", justifyContent: "flex-end" }}>
+                      <div style={{ padding: "12px 20px", background: "var(--color-bg-app)", display: "flex", justifyContent: "flex-end" }}>
                         <button
                           onClick={() => saveResults(test)}
                           disabled={saveLoading}
@@ -216,7 +216,7 @@ export function TestsContent({ isAdmin }: { isAdmin: boolean }) {
                       </div>
                     )}
                     {students.length === 0 ? (
-                      <div style={{ padding: "30px", textAlign: "center", color: "#64748b", fontSize: "14px" }}>
+                      <div style={{ padding: "30px", textAlign: "center", color: "var(--color-text-muted)", fontSize: "14px" }}>
                         No students found for Class {test.className}-{test.section}
                       </div>
                     ) : (
@@ -240,7 +240,7 @@ export function TestsContent({ isAdmin }: { isAdmin: boolean }) {
                                 : null;
                               return (
                                 <tr key={s.id}>
-                                  <td style={{ fontWeight: 600, color: "#4f46e5" }}>#{s.rollNumber}</td>
+                                  <td style={{ fontWeight: 600, color: "var(--color-primary)" }}>#{s.rollNumber}</td>
                                   <td style={{ fontWeight: 600 }}>{s.fullName}</td>
                                   <td>
                                     {isAdmin ? (
@@ -250,16 +250,16 @@ export function TestsContent({ isAdmin }: { isAdmin: boolean }) {
                                         max={test.fullMarks}
                                         value={marksEdits[s.id] ?? ""}
                                         onChange={(e) => setMarksEdits((prev) => ({ ...prev, [s.id]: e.target.value }))}
-                                        style={{ width: "80px", padding: "4px 8px", border: "1px solid #e2e8f0", borderRadius: "6px", fontSize: "14px", outline: "none" }}
-                                        placeholder="â€”"
+                                        style={{ width: "80px", padding: "4px 8px", border: "1px solid var(--color-border)", borderRadius: "6px", fontSize: "14px", outline: "none" }}
+                                        placeholder="-"
                                       />
                                     ) : (
-                                      <span style={{ fontWeight: 600 }}>{marksEdits[s.id] ?? "â€”"}</span>
+                                      <span style={{ fontWeight: 600 }}>{marksEdits[s.id] ?? "-"}</span>
                                     )}
                                   </td>
-                                  <td style={{ color: "#64748b" }}>{test.fullMarks}</td>
+                                  <td style={{ color: "var(--color-text-muted)" }}>{test.fullMarks}</td>
                                   <td style={{ minWidth: "150px" }}>
-                                    {pct !== null ? <ScoreBar score={pct} /> : <span style={{ color: "#94a3b8" }}>â€”</span>}
+                                    {pct !== null ? <ScoreBar score={pct} /> : <span style={{ color: "#94a3b8" }}>-</span>}
                                   </td>
                                 </tr>
                               );
@@ -316,12 +316,12 @@ function CreateTestModal({ onClose, onSave }: { onClose: () => void; onSave: () 
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: "520px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", padding: "20px 24px", borderBottom: "1px solid #f1f5f9" }}>
-          <h2 style={{ fontSize: "17px", fontWeight: 700, color: "#0f172a" }}>Create Test</h2>
+        <div style={{ display: "flex", justifyContent: "space-between", padding: "20px 24px", borderBottom: "1px solid var(--color-surface-hover)" }}>
+          <h2 style={{ fontSize: "17px", fontWeight: 700, color: "var(--color-text-dark)" }}>Create Test</h2>
           <button onClick={onClose} style={{ background: "none", border: "none", cursor: "pointer", color: "#94a3b8" }}><X size={20} /></button>
         </div>
         <form onSubmit={handleSubmit} style={{ padding: "20px 24px" }}>
-          {error && <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: "8px", padding: "10px", marginBottom: "14px", color: "#991b1b", fontSize: "14px" }}>{error}</div>}
+          {error && <div style={{ background: "#fef2f2", border: "1px solid rgba(239, 68, 68, 0.2)", borderRadius: "8px", padding: "10px", marginBottom: "14px", color: "#991b1b", fontSize: "14px" }}>{error}</div>}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "14px" }}>
             <div style={{ gridColumn: "1 / -1" }}>
               <label className="label">Test Name *</label>
@@ -360,7 +360,7 @@ function CreateTestModal({ onClose, onSave }: { onClose: () => void; onSave: () 
               <textarea className="input" value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} rows={2} style={{ resize: "vertical" }} placeholder="Chapters covered..." />
             </div>
           </div>
-          <div style={{ display: "flex", gap: "10px", justifyContent: "flex-end", marginTop: "20px", paddingTop: "16px", borderTop: "1px solid #f1f5f9" }}>
+          <div style={{ display: "flex", gap: "10px", justifyContent: "flex-end", marginTop: "20px", paddingTop: "16px", borderTop: "1px solid var(--color-surface-hover)" }}>
             <button type="button" className="btn-secondary" onClick={onClose} disabled={loading}>Cancel</button>
             <button type="submit" className="btn-primary" disabled={loading}>
               {loading ? <><Loader2 size={16} className="animate-spin" /> Creating...</> : <><Plus size={16} /> Create Test</>}

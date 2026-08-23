@@ -25,7 +25,7 @@ function ShellContent({ children, title }: AppShellProps) {
           display: "flex",
           flexDirection: "column",
           minHeight: "100vh",
-          background: "#f8fafc",
+          background: "var(--color-bg-app)",
         }}
         className="main-content"
       >

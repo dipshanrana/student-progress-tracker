@@ -4,11 +4,11 @@ const statusConfig: Record<
   PerformanceStatus,
   { bg: string; color: string; dot: string }
 > = {
-  Excellent: { bg: "#d1fae5", color: "#065f46", dot: "#10b981" },
+  Excellent: { bg: "rgba(16, 185, 129, 0.15)", color: "#065f46", dot: "var(--color-success)" },
   "Very Good": { bg: "#dbeafe", color: "#1e40af", dot: "#3b82f6" },
-  Good: { bg: "#ede9fe", color: "#4c1d95", dot: "#8b5cf6" },
-  Average: { bg: "#fef3c7", color: "#92400e", dot: "#f59e0b" },
-  "Needs Improvement": { bg: "#fee2e2", color: "#991b1b", dot: "#ef4444" },
+  Good: { bg: "rgba(109, 40, 217, 0.1)", color: "#4c1d95", dot: "#8b5cf6" },
+  Average: { bg: "rgba(245, 158, 11, 0.15)", color: "var(--color-warning)", dot: "var(--color-warning)" },
+  "Needs Improvement": { bg: "rgba(239, 68, 68, 0.1)", color: "#991b1b", dot: "var(--color-danger)" },
   "At Risk": { bg: "#ffe4e6", color: "#881337", dot: "#f43f5e" },
 };
 
@@ -45,11 +45,11 @@ export function PerformanceBadge({ status }: { status: PerformanceStatus }) {
 
 export function ScoreBar({ score }: { score: number }) {
   const getColor = (s: number) => {
-    if (s >= 90) return "#10b981";
+    if (s >= 90) return "var(--color-success)";
     if (s >= 80) return "#3b82f6";
     if (s >= 70) return "#8b5cf6";
-    if (s >= 60) return "#f59e0b";
-    if (s >= 50) return "#ef4444";
+    if (s >= 60) return "var(--color-warning)";
+    if (s >= 50) return "var(--color-danger)";
     return "#f43f5e";
   };
 
@@ -60,7 +60,7 @@ export function ScoreBar({ score }: { score: number }) {
           flex: 1,
           height: "6px",
           borderRadius: "3px",
-          background: "#e2e8f0",
+          background: "var(--color-border)",
           overflow: "hidden",
         }}
       >
