@@ -89,7 +89,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           zIndex: 50,
           transition: "transform 0.25s ease",
         }}
-        className={`sidebar-aside ${open ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
+        className={`sidebar-aside ${open ? "sidebar-open" : ""}`}
       >
         {/* Header Branding */}
         <div

@@ -48,6 +48,21 @@
   }
 }
 
+/* Sidebar Responsive Positioning */
+.sidebar-aside {
+  transform: translateX(-100%);
+}
+
+.sidebar-aside.sidebar-open {
+  transform: translateX(0) !important;
+}
+
+@media (min-width: 1024px) {
+  .sidebar-aside {
+    transform: translateX(0) !important;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -116,7 +131,7 @@ body {
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
-/* Card - Clean modern corporate card look */
+/* Card */
 .card {
   background: var(--color-surface);
   border-radius: 12px;
