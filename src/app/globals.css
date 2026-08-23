@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 /* Utility animations */
 @keyframes spin {
@@ -14,11 +14,15 @@
 .main-content {
   margin-left: 0;
   transition: margin-left 0.25s ease;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 @media (min-width: 1024px) {
   .main-content {
     margin-left: 240px;
+    width: calc(100vw - 240px);
   }
   .lg\:translate-x-0 {
     transform: translateX(0) !important;
@@ -63,6 +67,7 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
@@ -70,6 +75,9 @@
     background-color: var(--color-bg-app);
     color: var(--color-text-dark);
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
   }
 
   ::-webkit-scrollbar {
@@ -128,6 +136,7 @@
     border: 1px solid var(--color-border);
     box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.03);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    max-width: 100%;
   }
 
   .card:hover {
@@ -139,7 +148,7 @@
     background: var(--color-surface);
     border-radius: 16px;
     border: 1px solid var(--color-border);
-    padding: 24px;
+    padding: 20px;
     box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.03);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -222,6 +231,7 @@
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.02em;
+    white-space: nowrap;
   }
 
   .badge-excellent {
@@ -281,9 +291,11 @@
 
   .table-container {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     border-radius: 16px;
     border: 1px solid var(--color-border);
     box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.02);
+    width: 100%;
   }
 
   table {
@@ -293,7 +305,7 @@
 
   th {
     background: #fafafa;
-    padding: 16px 20px;
+    padding: 14px 16px;
     text-align: left;
     font-size: 12px;
     font-weight: 700;
@@ -301,10 +313,11 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
   }
 
   td {
-    padding: 16px 20px;
+    padding: 14px 16px;
     font-size: 14px;
     color: var(--color-text-dark);
     border-bottom: 1px solid var(--color-border);
@@ -446,60 +459,32 @@
     border-radius: 4px;
     transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   }
-
-  /* Ensure tables scroll horizontally on mobile */
-  .table-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
 }
 
 /* Responsive mobile rules */
 @media (max-width: 640px) {
   td, th {
     padding: 10px 12px;
-    font-size: 13px;
-  }
-
-  .btn-primary, .btn-secondary {
-    padding: 6px 14px;
-    font-size: 13px;
-  }
-
-  .page-header {
-    padding: 14px 16px;
-  }
-
-  main {
-    padding: 16px !important;
-  }
-}
-
-/* Print styles */
-@media print {
-  .no-print {
-    display: none !important;
-  }
-
-  .sidebar,
-  .page-header,
-  .print-hide {
-    display: none !important;
-  }
-
-  body {
-    background: white;
     font-size: 12px;
   }
 
-  .card {
-    box-shadow: none;
-    border: 1px solid #ddd;
-    break-inside: avoid;
+  .btn-primary, .btn-secondary {
+    padding: 7px 14px;
+    font-size: 13px;
+    width: 100%;
   }
 
-  @page {
-    margin: 20mm;
-    size: A4;
+  .stat-card {
+    padding: 14px;
+  }
+
+  .toast {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+  }
+
+  main {
+    padding: 12px !important;
   }
 }

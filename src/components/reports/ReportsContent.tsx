@@ -73,130 +73,127 @@ export function ReportsContent() {
     .map(([name, value]) => ({ name, value, color: PERFORMANCE_COLORS[name as PerformanceStatus] }));
 
   return (
-    <div>
+    <div style={{ maxWidth: "100%", overflowX: "hidden" }}>
       {/* Filters */}
-      <div style={{ display: "flex", gap: "10px", marginBottom: "20px", flexWrap: "wrap", alignItems: "center" }}>
-        <select className="input" value={classFilter} onChange={(e) => setClassFilter(e.target.value)} style={{ flex: "1 1 130px", minWidth: "110px", maxWidth: "180px", fontSize: "14px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: "8px", marginBottom: "16px" }}>
+        <select className="input" value={classFilter} onChange={(e) => setClassFilter(e.target.value)} style={{ fontSize: "13px", padding: "7px 10px" }}>
           <option value="">All Classes</option>
           {CLASSES.map((c) => <option key={c} value={c}>Class {c}</option>)}
         </select>
-        <select className="input" value={sectionFilter} onChange={(e) => setSectionFilter(e.target.value)} style={{ flex: "1 1 130px", minWidth: "110px", maxWidth: "180px", fontSize: "14px" }}>
+        <select className="input" value={sectionFilter} onChange={(e) => setSectionFilter(e.target.value)} style={{ fontSize: "13px", padding: "7px 10px" }}>
           <option value="">All Sections</option>
           {SECTIONS.map((s) => <option key={s} value={s}>Section {s}</option>)}
         </select>
       </div>
 
-      {/* Summary Cards — responsive grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))", gap: "12px", marginBottom: "24px" }}>
+      {/* Summary Cards */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(130px, 1fr))", gap: "10px", marginBottom: "20px" }}>
         {[
-          { label: "Total Students", value: summary.totalStudents, icon: <Users size={18} />, bg: "rgba(109,40,217,0.1)", color: "var(--color-primary-light)" },
-          { label: "Total Tests", value: summary.totalTests, icon: <ClipboardList size={18} />, bg: "rgba(245,158,11,0.15)", color: "var(--color-warning)" },
-          { label: "Total Homework", value: summary.totalHomework, icon: <BookOpen size={18} />, bg: "rgba(16,185,129,0.15)", color: "var(--color-success)" },
-          { label: "Avg Score", value: `${summary.averageScore}%`, icon: <TrendingUp size={18} />, bg: "#dbeafe", color: "#2563eb" },
-          { label: "HW Completion", value: `${summary.homeworkCompletionRate}%`, icon: <BookOpen size={18} />, bg: "rgba(16,185,129,0.15)", color: "var(--color-success)" },
+          { label: "Total Students", value: summary.totalStudents, icon: <Users size={16} />, bg: "rgba(109,40,217,0.1)", color: "var(--color-primary-light)" },
+          { label: "Total Tests", value: summary.totalTests, icon: <ClipboardList size={16} />, bg: "rgba(245,158,11,0.15)", color: "var(--color-warning)" },
+          { label: "Total Homework", value: summary.totalHomework, icon: <BookOpen size={16} />, bg: "rgba(16,185,129,0.15)", color: "var(--color-success)" },
+          { label: "Avg Score", value: `${summary.averageScore}%`, icon: <TrendingUp size={16} />, bg: "#dbeafe", color: "#2563eb" },
+          { label: "HW Completion", value: `${summary.homeworkCompletionRate}%`, icon: <BookOpen size={16} />, bg: "rgba(16,185,129,0.15)", color: "var(--color-success)" },
         ].map((card) => (
-          <div key={card.label} className="stat-card" style={{ padding: "16px" }}>
-            <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: card.bg, display: "flex", alignItems: "center", justifyContent: "center", color: card.color, marginBottom: "10px" }}>
+          <div key={card.label} className="stat-card" style={{ padding: "12px 14px" }}>
+            <div style={{ width: "32px", height: "32px", borderRadius: "8px", background: card.bg, display: "flex", alignItems: "center", justifyContent: "center", color: card.color, marginBottom: "8px" }}>
               {card.icon}
             </div>
-            <div style={{ fontSize: "22px", fontWeight: 800, color: "var(--color-text-dark)", lineHeight: 1.1 }}>{card.value}</div>
-            <div style={{ fontSize: "12px", color: "var(--color-text-muted)", marginTop: "4px" }}>{card.label}</div>
+            <div style={{ fontSize: "20px", fontWeight: 800, color: "var(--color-text-dark)", lineHeight: 1.1 }}>{card.value}</div>
+            <div style={{ fontSize: "11px", color: "var(--color-text-muted)", marginTop: "2px" }}>{card.label}</div>
           </div>
         ))}
       </div>
 
-      {/* Charts — single column on mobile, side-by-side on desktop */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginBottom: "24px" }}>
-
-        {/* Student Rankings Bar Chart — full width */}
+      {/* Charts Column */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginBottom: "20px" }}>
+        {/* Rankings Bar Chart */}
         {sorted.length > 0 && (
-          <div className="card" style={{ padding: "20px", overflow: "hidden" }}>
-            <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "16px" }}>Student Rankings</h3>
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart
-                data={sorted.slice(0, 12).map((s) => ({
-                  name: s.fullName.split(" ")[0],
-                  score: parseFloat(s.overallScore.toFixed(1)),
-                }))}
-                barSize={20}
-                margin={{ top: 4, right: 8, left: -8, bottom: 0 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--color-surface-hover)" vertical={false} />
-                <XAxis dataKey="name" tick={{ fontSize: 11, fill: "var(--color-text-muted)" }} tickLine={false} axisLine={false} />
-                <YAxis domain={[0, 100]} tick={{ fontSize: 11, fill: "var(--color-text-muted)" }} tickFormatter={(v) => `${v}%`} tickLine={false} axisLine={false} width={38} />
-                <Tooltip formatter={(v) => [`${v}%`, "Overall"]} contentStyle={{ borderRadius: "10px", border: "1px solid var(--color-border)", fontSize: "13px" }} />
-                <Bar dataKey="score" fill="var(--color-primary)" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
+          <div className="card" style={{ padding: "16px", width: "100%", overflow: "hidden" }}>
+            <h3 style={{ fontSize: "14px", fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "12px" }}>Student Rankings</h3>
+            <div style={{ width: "100%", height: 240 }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={sorted.slice(0, 10).map((s) => ({
+                    name: s.fullName.split(" ")[0],
+                    score: parseFloat(s.overallScore.toFixed(1)),
+                  }))}
+                  barSize={16}
+                  margin={{ top: 4, right: 4, left: -20, bottom: 0 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--color-surface-hover)" vertical={false} />
+                  <XAxis dataKey="name" tick={{ fontSize: 10, fill: "var(--color-text-muted)" }} tickLine={false} axisLine={false} />
+                  <YAxis domain={[0, 100]} tick={{ fontSize: 10, fill: "var(--color-text-muted)" }} tickFormatter={(v) => `${v}%`} tickLine={false} axisLine={false} />
+                  <Tooltip formatter={(v) => [`${v}%`, "Overall"]} contentStyle={{ borderRadius: "8px", fontSize: "12px" }} />
+                  <Bar dataKey="score" fill="var(--color-primary)" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         )}
 
-        {/* Row of 2 charts — stack on mobile, side by side on wider screens */}
-        {(testPerformanceChart.length > 0 || distributionData.length > 0) && (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "16px" }}>
-
-            {/* Test Performance Trend */}
-            {testPerformanceChart.length > 0 && (
-              <div className="card" style={{ padding: "20px", overflow: "hidden" }}>
-                <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "16px" }}>Test Performance Trend</h3>
-                <ResponsiveContainer width="100%" height={200}>
-                  <LineChart data={testPerformanceChart} margin={{ top: 4, right: 8, left: -8, bottom: 0 }}>
+        {/* 2-Column Responsive Grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "16px" }}>
+          {testPerformanceChart.length > 0 && (
+            <div className="card" style={{ padding: "16px", overflow: "hidden" }}>
+              <h3 style={{ fontSize: "14px", fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "12px" }}>Test Performance Trend</h3>
+              <div style={{ width: "100%", height: 180 }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={testPerformanceChart} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="var(--color-surface-hover)" />
-                    <XAxis dataKey="name" tick={{ fontSize: 11, fill: "var(--color-text-muted)" }} tickLine={false} axisLine={false} />
-                    <YAxis domain={[0, 100]} tick={{ fontSize: 11, fill: "var(--color-text-muted)" }} tickFormatter={(v) => `${v}%`} tickLine={false} axisLine={false} width={38} />
-                    <Tooltip formatter={(v) => [`${v}%`, "Avg Score"]} contentStyle={{ borderRadius: "10px", border: "1px solid var(--color-border)", fontSize: "13px" }} />
-                    <Line type="monotone" dataKey="average" stroke="var(--color-primary)" strokeWidth={2.5} dot={{ fill: "var(--color-primary)", r: 4 }} />
+                    <XAxis dataKey="name" tick={{ fontSize: 10, fill: "var(--color-text-muted)" }} tickLine={false} axisLine={false} />
+                    <YAxis domain={[0, 100]} tick={{ fontSize: 10, fill: "var(--color-text-muted)" }} tickFormatter={(v) => `${v}%`} tickLine={false} axisLine={false} />
+                    <Tooltip formatter={(v) => [`${v}%`, "Avg Score"]} contentStyle={{ borderRadius: "8px", fontSize: "12px" }} />
+                    <Line type="monotone" dataKey="average" stroke="var(--color-primary)" strokeWidth={2} dot={{ fill: "var(--color-primary)", r: 3 }} />
                   </LineChart>
                 </ResponsiveContainer>
               </div>
-            )}
+            </div>
+          )}
 
-            {/* Performance Distribution */}
-            {distributionData.length > 0 && (
-              <div className="card" style={{ padding: "20px", overflow: "hidden" }}>
-                <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "16px" }}>Performance Distribution</h3>
-                {/* Pie + legend stacked vertically for consistent layout */}
-                <div style={{ display: "flex", justifyContent: "center", marginBottom: "16px" }}>
-                  <ResponsiveContainer width="100%" height={160}>
-                    <PieChart>
-                      <Pie data={distributionData} cx="50%" cy="50%" outerRadius={70} dataKey="value" innerRadius={30}>
-                        {distributionData.map((entry, i) => <Cell key={i} fill={entry.color} />)}
-                      </Pie>
-                      <Tooltip formatter={(v, n) => [v, n]} contentStyle={{ borderRadius: "8px", fontSize: "12px" }} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px 12px" }}>
-                  {distributionData.map((d) => (
-                    <div key={d.name} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "6px" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-                        <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: d.color, flexShrink: 0 }} />
-                        <span style={{ fontSize: "12px", color: "#374151" }}>{d.name}</span>
-                      </div>
-                      <span style={{ fontSize: "13px", fontWeight: 700, color: "var(--color-text-dark)" }}>{d.value}</span>
-                    </div>
-                  ))}
-                </div>
+          {distributionData.length > 0 && (
+            <div className="card" style={{ padding: "16px", overflow: "hidden" }}>
+              <h3 style={{ fontSize: "14px", fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "12px" }}>Performance Distribution</h3>
+              <div style={{ height: 140, marginBottom: "12px" }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie data={distributionData} cx="50%" cy="50%" outerRadius={60} dataKey="value" innerRadius={24}>
+                      {distributionData.map((entry, i) => <Cell key={i} fill={entry.color} />)}
+                    </Pie>
+                    <Tooltip formatter={(v, n) => [v, n]} contentStyle={{ borderRadius: "8px", fontSize: "11px" }} />
+                  </PieChart>
+                </ResponsiveContainer>
               </div>
-            )}
-          </div>
-        )}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 8px" }}>
+                {distributionData.map((d) => (
+                  <div key={d.name} style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                      <div style={{ width: "7px", height: "7px", borderRadius: "50%", background: d.color, flexShrink: 0 }} />
+                      <span style={{ fontSize: "11px", color: "#374151" }}>{d.name}</span>
+                    </div>
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "var(--color-text-dark)" }}>{d.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Student Table — horizontally scrollable on mobile */}
+      {/* Student Table */}
       {students.length > 0 && (
-        <div className="card" style={{ overflow: "hidden" }}>
-          <div style={{ padding: "14px 20px", borderBottom: "1px solid var(--color-surface-hover)" }}>
-            <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--color-text-dark)" }}>
+        <div className="card" style={{ overflow: "hidden", width: "100%" }}>
+          <div style={{ padding: "12px 16px", borderBottom: "1px solid var(--color-surface-hover)" }}>
+            <h3 style={{ fontSize: "14px", fontWeight: 700, color: "var(--color-text-dark)" }}>
               Student Report Summary
-              <span style={{ fontSize: "13px", fontWeight: 500, color: "var(--color-text-muted)", marginLeft: "8px" }}>({students.length})</span>
+              <span style={{ fontSize: "12px", fontWeight: 500, color: "var(--color-text-muted)", marginLeft: "6px" }}>({students.length})</span>
             </h3>
           </div>
-          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
-            <table style={{ minWidth: "620px" }}>
+          <div style={{ overflowX: "auto", width: "100%" }}>
+            <table style={{ minWidth: "580px", width: "100%" }}>
               <thead>
                 <tr>
-                  <th style={{ paddingLeft: "20px" }}>#</th>
+                  <th style={{ paddingLeft: "16px" }}>#</th>
                   <th>Student</th>
                   <th>Class</th>
                   <th>Test Avg</th>
@@ -209,13 +206,13 @@ export function ReportsContent() {
               <tbody>
                 {sorted.map((s, i) => (
                   <tr key={s.id}>
-                    <td style={{ paddingLeft: "20px", fontWeight: 700, color: i < 3 ? "var(--color-warning)" : "#94a3b8" }}>#{i + 1}</td>
+                    <td style={{ paddingLeft: "16px", fontWeight: 700, color: i < 3 ? "var(--color-warning)" : "#94a3b8" }}>#{i + 1}</td>
                     <td>
                       <div style={{ fontWeight: 600 }}>{s.fullName}</div>
-                      <div style={{ fontSize: "12px", color: "#94a3b8" }}>Roll #{s.rollNumber}</div>
+                      <div style={{ fontSize: "11px", color: "#94a3b8" }}>Roll #{s.rollNumber}</div>
                     </td>
                     <td>
-                      <span style={{ background: "rgba(109,40,217,0.1)", color: "var(--color-primary)", padding: "2px 8px", borderRadius: "6px", fontSize: "13px", fontWeight: 600, whiteSpace: "nowrap" }}>
+                      <span style={{ background: "rgba(109,40,217,0.1)", color: "var(--color-primary)", padding: "2px 6px", borderRadius: "6px", fontSize: "12px", fontWeight: 600, whiteSpace: "nowrap" }}>
                         {s.className}-{s.section}
                       </span>
                     </td>
@@ -224,7 +221,7 @@ export function ReportsContent() {
                     <td style={{ fontWeight: 700, color: "var(--color-text-dark)", whiteSpace: "nowrap" }}>{s.overallScore.toFixed(1)}%</td>
                     <td><PerformanceBadge status={s.status} /></td>
                     <td>
-                      <Link href={`/students/${s.id}`} style={{ color: "var(--color-primary)", fontSize: "13px", fontWeight: 500, textDecoration: "none", whiteSpace: "nowrap" }}>
+                      <Link href={`/students/${s.id}`} style={{ color: "var(--color-primary)", fontSize: "12px", fontWeight: 500, textDecoration: "none", whiteSpace: "nowrap" }}>
                         View &rarr;
                       </Link>
                     </td>
@@ -233,16 +230,6 @@ export function ReportsContent() {
               </tbody>
             </table>
           </div>
-        </div>
-      )}
-
-      {students.length === 0 && (
-        <div className="card" style={{ padding: "48px", textAlign: "center" }}>
-          <div style={{ fontSize: "40px", marginBottom: "12px", color: "var(--color-border)" }}>&#128202;</div>
-          <h3 style={{ fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "6px" }}>No data available</h3>
-          <p style={{ color: "var(--color-text-muted)", fontSize: "14px" }}>
-            Add students and record test results to generate reports.
-          </p>
         </div>
       )}
     </div>

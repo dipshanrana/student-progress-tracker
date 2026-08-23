@@ -45,10 +45,10 @@ function StudentInitials({ name }: { name: string }) {
     : name.slice(0, 2);
   return (
     <div style={{
-      width: "36px", height: "36px", borderRadius: "50%", flexShrink: 0,
+      width: "32px", height: "32px", borderRadius: "50%", flexShrink: 0,
       background: "linear-gradient(135deg, var(--color-primary), var(--color-primary-light))",
       display: "flex", alignItems: "center", justifyContent: "center",
-      color: "white", fontSize: "13px", fontWeight: 700,
+      color: "white", fontSize: "12px", fontWeight: 700,
     }}>
       {initials.toUpperCase()}
     </div>
@@ -129,9 +129,9 @@ export function StudentsContent({ isAdmin }: { isAdmin: boolean }) {
   }
 
   return (
-    <div>
+    <div style={{ maxWidth: "100%", overflowX: "hidden" }}>
       {/* Header */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", flexWrap: "wrap", gap: "12px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", flexWrap: "wrap", gap: "10px" }}>
         <div>
           <h2 style={{ fontSize: "20px", fontWeight: 700, color: "var(--color-text-dark)" }}>
             All Students
@@ -150,43 +150,43 @@ export function StudentsContent({ isAdmin }: { isAdmin: boolean }) {
       {/* Filters */}
       <div style={{
         background: "white", border: "1px solid var(--color-border)", borderRadius: "12px",
-        padding: "12px 14px", marginBottom: "16px",
+        padding: "12px", marginBottom: "16px", display: "flex", flexDirection: "column", gap: "10px"
       }}>
-        {/* Search row */}
-        <div style={{ position: "relative", marginBottom: "10px" }}>
-          <Search size={16} style={{ position: "absolute", left: "10px", top: "50%", transform: "translateY(-50%)", color: "#94a3b8" }} />
+        {/* Search bar */}
+        <div style={{ position: "relative", width: "100%" }}>
+          <Search size={16} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "#94a3b8" }} />
           <input
             className="input"
             placeholder="Search by name or roll number..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            style={{ paddingLeft: "34px" }}
+            style={{ paddingLeft: "36px", width: "100%" }}
           />
         </div>
+
         {/* Filter selects */}
-        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", alignItems: "center" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--color-text-muted)", fontSize: "13px" }}>
-            <SlidersHorizontal size={15} />
-            <span>Filters:</span>
-          </div>
-          <select className="input" value={classFilter} onChange={(e) => setClassFilter(e.target.value)} style={{ width: "auto", minWidth: "110px", fontSize: "13px", padding: "7px 10px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))", gap: "8px", alignItems: "center" }}>
+          <select className="input" value={classFilter} onChange={(e) => setClassFilter(e.target.value)} style={{ fontSize: "13px", padding: "7px 10px" }}>
             <option value="">All Classes</option>
             {CLASSES.map((c) => <option key={c} value={c}>Class {c}</option>)}
           </select>
-          <select className="input" value={sectionFilter} onChange={(e) => setSectionFilter(e.target.value)} style={{ width: "auto", minWidth: "110px", fontSize: "13px", padding: "7px 10px" }}>
+
+          <select className="input" value={sectionFilter} onChange={(e) => setSectionFilter(e.target.value)} style={{ fontSize: "13px", padding: "7px 10px" }}>
             <option value="">All Sections</option>
             {SECTIONS.map((s) => <option key={s} value={s}>Section {s}</option>)}
           </select>
-          <select className="input" value={perfFilter} onChange={(e) => setPerfFilter(e.target.value)} style={{ width: "auto", minWidth: "150px", fontSize: "13px", padding: "7px 10px" }}>
+
+          <select className="input" value={perfFilter} onChange={(e) => setPerfFilter(e.target.value)} style={{ fontSize: "13px", padding: "7px 10px" }}>
             <option value="">All Performance</option>
             {["Excellent", "Very Good", "Good", "Average", "Needs Improvement", "At Risk"].map((p) => (
               <option key={p} value={p}>{p}</option>
             ))}
           </select>
+
           {hasActiveFilters && (
             <button
               onClick={() => { setSearch(""); setClassFilter(""); setSectionFilter(""); setPerfFilter(""); }}
-              style={{ display: "flex", alignItems: "center", gap: "4px", padding: "7px 10px", background: "none", border: "1px solid var(--color-border)", borderRadius: "8px", fontSize: "12px", color: "var(--color-text-muted)", cursor: "pointer" }}
+              style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "4px", padding: "7px 10px", background: "none", border: "1px solid var(--color-border)", borderRadius: "8px", fontSize: "12px", color: "var(--color-text-muted)", cursor: "pointer", height: "100%" }}
             >
               <X size={13} /> Clear
             </button>
@@ -195,30 +195,30 @@ export function StudentsContent({ isAdmin }: { isAdmin: boolean }) {
       </div>
 
       {/* Table container — horizontally scrollable */}
-      <div className="table-container" style={{ background: "white" }}>
+      <div className="table-container" style={{ background: "white", width: "100%", overflowX: "auto" }}>
         {loading ? (
           <TableSkeleton rows={6} />
         ) : filtered.length === 0 ? (
-          <div style={{ padding: "60px 24px", textAlign: "center" }}>
-            <div style={{ fontSize: "48px", marginBottom: "12px", color: "var(--color-border)" }}>&#128269;</div>
+          <div style={{ padding: "48px 16px", textAlign: "center" }}>
+            <div style={{ fontSize: "40px", marginBottom: "12px", color: "var(--color-border)" }}>&#128269;</div>
             <h3 style={{ fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "6px" }}>No students found</h3>
             <p style={{ color: "var(--color-text-muted)", fontSize: "14px" }}>
               {hasActiveFilters ? "Try adjusting your filters or search term." : isAdmin ? "Add your first student to start tracking progress." : "No students available."}
             </p>
           </div>
         ) : (
-          <table style={{ minWidth: "700px" }}>
+          <table style={{ minWidth: "650px", width: "100%" }}>
             <thead>
               <tr>
                 <th onClick={() => handleSort("rollNumber")} style={{ cursor: "pointer", userSelect: "none" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>Roll No <SortIcon field="rollNumber" /></div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>Roll <SortIcon field="rollNumber" /></div>
                 </th>
                 <th onClick={() => handleSort("fullName")} style={{ cursor: "pointer", userSelect: "none" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>Student <SortIcon field="fullName" /></div>
                 </th>
                 <th>Class</th>
                 <th onClick={() => handleSort("homeworkCompletion")} style={{ cursor: "pointer", userSelect: "none" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>Homework % <SortIcon field="homeworkCompletion" /></div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>HW % <SortIcon field="homeworkCompletion" /></div>
                 </th>
                 <th onClick={() => handleSort("testAverage")} style={{ cursor: "pointer", userSelect: "none" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>Test Avg <SortIcon field="testAverage" /></div>
@@ -237,60 +237,60 @@ export function StudentsContent({ isAdmin }: { isAdmin: boolean }) {
                     <span style={{ fontWeight: 600, color: "var(--color-primary)" }}>#{s.rollNumber}</span>
                   </td>
                   <td>
-                    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <StudentInitials name={s.fullName} />
                       <div>
                         <div style={{ fontWeight: 600, color: "var(--color-text-dark)", whiteSpace: "nowrap" }}>{s.fullName}</div>
-                        {s.gender && <div style={{ fontSize: "12px", color: "#94a3b8" }}>{s.gender}</div>}
+                        {s.gender && <div style={{ fontSize: "11px", color: "#94a3b8" }}>{s.gender}</div>}
                       </div>
                     </div>
                   </td>
                   <td>
-                    <span style={{ background: "rgba(109,40,217,0.1)", color: "var(--color-primary)", padding: "2px 8px", borderRadius: "6px", fontSize: "13px", fontWeight: 600, whiteSpace: "nowrap" }}>
+                    <span style={{ background: "rgba(109,40,217,0.1)", color: "var(--color-primary)", padding: "2px 6px", borderRadius: "6px", fontSize: "12px", fontWeight: 600, whiteSpace: "nowrap" }}>
                       {s.className}-{s.section}
                     </span>
                   </td>
-                  <td style={{ minWidth: "130px" }}>
+                  <td style={{ minWidth: "110px" }}>
                     {s.homeworkRecords.length === 0 ? (
-                      <span style={{ color: "#94a3b8", fontSize: "13px" }}>No data</span>
+                      <span style={{ color: "#94a3b8", fontSize: "12px" }}>N/A</span>
                     ) : (
                       <ScoreBar score={s.homeworkCompletion} />
                     )}
                   </td>
-                  <td style={{ minWidth: "120px" }}>
+                  <td style={{ minWidth: "110px" }}>
                     {s.testResults.length === 0 ? (
-                      <span style={{ color: "#94a3b8", fontSize: "13px" }}>No data</span>
+                      <span style={{ color: "#94a3b8", fontSize: "12px" }}>N/A</span>
                     ) : (
                       <ScoreBar score={s.testAverage} />
                     )}
                   </td>
-                  <td style={{ minWidth: "120px" }}>
+                  <td style={{ minWidth: "110px" }}>
                     <ScoreBar score={s.overallScore} />
                   </td>
                   <td>
                     <PerformanceBadge status={s.status} />
                   </td>
                   <td>
-                    <div style={{ display: "flex", gap: "5px", flexWrap: "nowrap" }}>
+                    <div style={{ display: "flex", gap: "4px", flexWrap: "nowrap" }}>
                       <Link
                         href={`/students/${s.id}`}
-                        style={{ display: "inline-flex", alignItems: "center", padding: "5px 9px", background: "var(--color-bg-app)", border: "1px solid var(--color-border)", borderRadius: "6px", color: "#374151", fontSize: "13px", fontWeight: 500, gap: "4px", textDecoration: "none", whiteSpace: "nowrap" }}
+                        style={{ display: "inline-flex", alignItems: "center", padding: "4px 8px", background: "var(--color-bg-app)", border: "1px solid var(--color-border)", borderRadius: "6px", color: "#374151", fontSize: "12px", fontWeight: 500, gap: "4px", textDecoration: "none", whiteSpace: "nowrap" }}
                       >
-                        <Eye size={14} /> View
+                        <Eye size={13} /> View
                       </Link>
                       {isAdmin && (
                         <>
                           <button
                             onClick={() => { setEditStudent(s); setShowModal(true); }}
-                            style={{ display: "inline-flex", alignItems: "center", padding: "5px 9px", background: "rgba(109,40,217,0.1)", border: "1px solid #ddd6fe", borderRadius: "6px", color: "var(--color-primary)", fontSize: "13px", fontWeight: 500, gap: "4px", cursor: "pointer", whiteSpace: "nowrap" }}
+                            style={{ display: "inline-flex", alignItems: "center", padding: "4px 8px", background: "rgba(109,40,217,0.1)", border: "1px solid #ddd6fe", borderRadius: "6px", color: "var(--color-primary)", fontSize: "12px", fontWeight: 500, gap: "4px", cursor: "pointer", whiteSpace: "nowrap" }}
                           >
-                            <Pencil size={14} /> Edit
+                            <Pencil size={13} /> Edit
                           </button>
                           <button
                             onClick={() => setDeleteId(s.id)}
-                            style={{ display: "inline-flex", alignItems: "center", padding: "5px 8px", background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: "6px", color: "var(--color-danger)", fontSize: "13px", cursor: "pointer" }}
+                            style={{ display: "inline-flex", alignItems: "center", padding: "4px 7px", background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: "6px", color: "var(--color-danger)", fontSize: "12px", cursor: "pointer" }}
                           >
-                            <Trash2 size={14} />
+                            <Trash2 size={13} />
                           </button>
                         </>
                       )}
@@ -314,7 +314,7 @@ export function StudentsContent({ isAdmin }: { isAdmin: boolean }) {
       {deleteId && (
         <ConfirmDialog
           title="Delete Student"
-          message="Are you sure you want to delete this student? All associated homework records, test results, and remarks will also be deleted. This action cannot be undone."
+          message="Are you sure you want to delete this student? All associated records will be deleted."
           onConfirm={handleDelete}
           onCancel={() => setDeleteId(null)}
           loading={deleteLoading}
