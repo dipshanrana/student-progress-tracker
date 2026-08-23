@@ -1,35 +1,51 @@
 ﻿"use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import {
   LayoutDashboard,
   Users,
-  BookOpen,
   ClipboardList,
   BarChart3,
   LogOut,
   GraduationCap,
   Settings,
-  ChevronRight,
   X,
+  UserCheck,
 } from "lucide-react";
 
-interface NavItem {
-  href: string;
-  label: string;
-  icon: React.ComponentType<{ size?: number }>;
-  adminOnly?: boolean;
+interface NavGroup {
+  group: string;
+  items: {
+    href: string;
+    label: string;
+    icon: React.ComponentType<{ size?: number }>;
+    adminOnly?: boolean;
+  }[];
 }
 
-const navItems: NavItem[] = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/students", label: "Students", icon: Users },
-  { href: "/homework", label: "Homework", icon: BookOpen },
-  { href: "/tests", label: "Tests", icon: ClipboardList },
-  { href: "/reports", label: "Reports", icon: BarChart3 },
+const navGroups: NavGroup[] = [
+  {
+    group: "",
+    items: [
+      { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+    ],
+  },
+  {
+    group: "Students",
+    items: [
+      { href: "/students", label: "Students", icon: Users },
+      { href: "/homework", label: "Attendance / HW", icon: UserCheck },
+      { href: "/tests", label: "Assessments", icon: ClipboardList },
+    ],
+  },
+  {
+    group: "Analytics",
+    items: [
+      { href: "/reports", label: "Performance & Reports", icon: BarChart3 },
+    ],
+  },
 ];
 
 interface SidebarProps {
@@ -41,21 +57,11 @@ export function Sidebar({ open, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { data: session } = useSession();
   const isAdmin = session?.user?.role === "ADMIN";
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
-    checkDesktop();
-    window.addEventListener("resize", checkDesktop);
-    return () => window.removeEventListener("resize", checkDesktop);
-  }, []);
-
-  const isVisible = isDesktop || open;
 
   return (
     <>
       {/* Mobile overlay */}
-      {!isDesktop && open && (
+      {open && (
         <div
           style={{
             position: "fixed",
@@ -63,6 +69,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
             background: "rgba(15, 23, 42, 0.6)",
             zIndex: 40,
           }}
+          className="lg:hidden"
           onClick={onClose}
         />
       )}
@@ -75,16 +82,16 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           left: 0,
           height: "100vh",
           width: "240px",
-          background: "#0f172a",
+          background: "#0b1329",
           borderRight: "1px solid rgba(255,255,255,0.08)",
           display: "flex",
           flexDirection: "column",
           zIndex: 50,
-          transform: isVisible ? "translateX(0)" : "translateX(-100%)",
           transition: "transform 0.25s ease",
         }}
+        className={`sidebar-aside ${open ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
       >
-        {/* Logo */}
+        {/* Header Branding */}
         <div
           style={{
             padding: "20px 20px 18px",
@@ -104,7 +111,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                boxShadow: "0 2px 8px rgba(37, 99, 235, 0.3)",
+                boxShadow: "0 4px 12px rgba(37, 99, 235, 0.3)",
                 flexShrink: 0,
               }}
             >
@@ -112,28 +119,27 @@ export function Sidebar({ open, onClose }: SidebarProps) {
             </div>
             <div>
               <div style={{ color: "#ffffff", fontSize: "15px", fontWeight: 700, letterSpacing: "-0.01em" }}>
-                EduTracker
+                Student Progress
               </div>
-              <div style={{ color: "#64748b", fontSize: "11px", fontWeight: 500 }}>Student Portal</div>
+              <div style={{ color: "#475569", fontSize: "11px", fontWeight: 500 }}>Tracker</div>
             </div>
           </div>
-          {!isDesktop && (
-            <button
-              onClick={onClose}
-              aria-label="Close sidebar"
-              style={{
-                background: "none",
-                border: "none",
-                color: "#94a3b8",
-                cursor: "pointer",
-              }}
-            >
-              <X size={20} />
-            </button>
-          )}
+          <button
+            onClick={onClose}
+            aria-label="Close sidebar"
+            style={{
+              background: "none",
+              border: "none",
+              color: "#94a3b8",
+              cursor: "pointer",
+            }}
+            className="lg:hidden"
+          >
+            <X size={20} />
+          </button>
         </div>
 
-        {/* User info */}
+        {/* User Badge */}
         <div
           style={{
             padding: "16px 20px",
@@ -171,7 +177,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                 textOverflow: "ellipsis",
               }}
             >
-              {session?.user?.name}
+              {session?.user?.name ?? "User"}
             </div>
             <div
               style={{
@@ -185,54 +191,58 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           </div>
         </div>
 
-        {/* Navigation */}
+        {/* Navigation Groups */}
         <nav style={{ flex: 1, padding: "16px 12px", overflowY: "auto" }}>
-          <p
-            style={{
-              color: "#475569",
-              fontSize: "11px",
-              fontWeight: 600,
-              textTransform: "uppercase",
-              letterSpacing: "0.05em",
-              padding: "0 8px",
-              marginBottom: "8px",
-            }}
-          >
-            Navigation
-          </p>
-          {navItems.map((item) => {
-            const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
-            const Icon = item.icon;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={onClose}
-                className={`sidebar-link ${isActive ? "active" : ""}`}
-                style={{
-                  marginBottom: "4px",
-                }}
-              >
-                <Icon size={18} />
-                <span style={{ flex: 1 }}>{item.label}</span>
-                {isActive && <ChevronRight size={14} opacity={0.7} />}
-              </Link>
-            );
-          })}
+          {navGroups.map((group, idx) => (
+            <div key={idx} style={{ marginBottom: "16px" }}>
+              {group.group && (
+                <p
+                  style={{
+                    color: "#475569",
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.08em",
+                    padding: "0 10px",
+                    marginBottom: "6px",
+                  }}
+                >
+                  {group.group}
+                </p>
+              )}
+              {group.items.map((item) => {
+                const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={onClose}
+                    className={`sidebar-link ${isActive ? "active" : ""}`}
+                    style={{ marginBottom: "2px" }}
+                  >
+                    <Icon size={18} />
+                    <span style={{ flex: 1 }}>{item.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          ))}
 
           {isAdmin && (
-            <>
+            <div style={{ marginTop: "16px" }}>
               <p
                 style={{
                   color: "#475569",
                   fontSize: "11px",
-                  fontWeight: 600,
+                  fontWeight: 700,
                   textTransform: "uppercase",
-                  letterSpacing: "0.05em",
-                  padding: "16px 8px 8px",
+                  letterSpacing: "0.08em",
+                  padding: "0 10px",
+                  marginBottom: "6px",
                 }}
               >
-                Management
+                System
               </p>
               <Link
                 href="/settings"
@@ -242,11 +252,11 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                 <Settings size={18} />
                 <span>Settings</span>
               </Link>
-            </>
+            </div>
           )}
         </nav>
 
-        {/* Logout */}
+        {/* Logout Button */}
         <div style={{ padding: "16px 12px", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
           <button
             onClick={() => signOut({ callbackUrl: "/login" })}
@@ -259,7 +269,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
             }}
           >
             <LogOut size={18} />
-            <span>Sign Out</span>
+            <span>Logout</span>
           </button>
         </div>
       </aside>
