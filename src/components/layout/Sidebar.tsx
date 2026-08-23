@@ -11,7 +11,6 @@ import {
   LogOut,
   GraduationCap,
   Settings,
-  X,
   UserCheck,
 } from "lucide-react";
 
@@ -124,19 +123,6 @@ export function Sidebar({ open, onClose }: SidebarProps) {
               <div style={{ color: "#475569", fontSize: "11px", fontWeight: 500 }}>Tracker</div>
             </div>
           </div>
-          <button
-            onClick={onClose}
-            aria-label="Close sidebar"
-            style={{
-              background: "none",
-              border: "none",
-              color: "#94a3b8",
-              cursor: "pointer",
-            }}
-            className="lg:hidden"
-          >
-            <X size={20} />
-          </button>
         </div>
 
         {/* User Badge */}
