@@ -1,16 +1,10 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import {
-  UserPlus,
-  Search,
-  SlidersHorizontal,
-  Pencil,
-  Trash2,
-  Eye,
-  ChevronUp,
-  ChevronDown,
+  UserPlus, Search, SlidersHorizontal, Pencil, Trash2, Eye,
+  ChevronUp, ChevronDown, X,
 } from "lucide-react";
 import { PerformanceBadge, ScoreBar } from "@/components/ui/PerformanceBadge";
 import { TableSkeleton } from "@/components/ui/Skeleton";
@@ -42,6 +36,23 @@ interface StudentWithStats extends Student {
   homeworkCompletion: number;
   overallScore: number;
   status: PerformanceStatus;
+}
+
+function StudentInitials({ name }: { name: string }) {
+  const parts = name.trim().split(" ");
+  const initials = parts.length >= 2
+    ? `${parts[0][0]}${parts[parts.length - 1][0]}`
+    : name.slice(0, 2);
+  return (
+    <div style={{
+      width: "36px", height: "36px", borderRadius: "50%", flexShrink: 0,
+      background: "linear-gradient(135deg, var(--color-primary), var(--color-primary-light))",
+      display: "flex", alignItems: "center", justifyContent: "center",
+      color: "white", fontSize: "13px", fontWeight: 700,
+    }}>
+      {initials.toUpperCase()}
+    </div>
+  );
 }
 
 export function StudentsContent({ isAdmin }: { isAdmin: boolean }) {
@@ -96,6 +107,8 @@ export function StudentsContent({ isAdmin }: { isAdmin: boolean }) {
       return String(av).localeCompare(String(bv)) * dir;
     });
 
+  const hasActiveFilters = classFilter || sectionFilter || perfFilter || search;
+
   async function handleDelete() {
     if (!deleteId) return;
     setDeleteLoading(true);
@@ -128,30 +141,19 @@ export function StudentsContent({ isAdmin }: { isAdmin: boolean }) {
           </h2>
         </div>
         {isAdmin && (
-          <button
-            className="btn-primary"
-            onClick={() => { setEditStudent(null); setShowModal(true); }}
-          >
+          <button className="btn-primary" onClick={() => { setEditStudent(null); setShowModal(true); }}>
             <UserPlus size={16} /> Add Student
           </button>
         )}
       </div>
 
       {/* Filters */}
-      <div
-        style={{
-          background: "white",
-          border: "1px solid var(--color-border)",
-          borderRadius: "12px",
-          padding: "14px 16px",
-          marginBottom: "16px",
-          display: "flex",
-          gap: "12px",
-          flexWrap: "wrap",
-          alignItems: "center",
-        }}
-      >
-        <div style={{ position: "relative", flex: 1, minWidth: "200px" }}>
+      <div style={{
+        background: "white", border: "1px solid var(--color-border)", borderRadius: "12px",
+        padding: "12px 14px", marginBottom: "16px",
+      }}>
+        {/* Search row */}
+        <div style={{ position: "relative", marginBottom: "10px" }}>
           <Search size={16} style={{ position: "absolute", left: "10px", top: "50%", transform: "translateY(-50%)", color: "#94a3b8" }} />
           <input
             className="input"
@@ -161,42 +163,38 @@ export function StudentsContent({ isAdmin }: { isAdmin: boolean }) {
             style={{ paddingLeft: "34px" }}
           />
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--color-text-muted)", fontSize: "14px" }}>
-          <SlidersHorizontal size={16} />
-          <span>Filters:</span>
+        {/* Filter selects */}
+        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", alignItems: "center" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--color-text-muted)", fontSize: "13px" }}>
+            <SlidersHorizontal size={15} />
+            <span>Filters:</span>
+          </div>
+          <select className="input" value={classFilter} onChange={(e) => setClassFilter(e.target.value)} style={{ width: "auto", minWidth: "110px", fontSize: "13px", padding: "7px 10px" }}>
+            <option value="">All Classes</option>
+            {CLASSES.map((c) => <option key={c} value={c}>Class {c}</option>)}
+          </select>
+          <select className="input" value={sectionFilter} onChange={(e) => setSectionFilter(e.target.value)} style={{ width: "auto", minWidth: "110px", fontSize: "13px", padding: "7px 10px" }}>
+            <option value="">All Sections</option>
+            {SECTIONS.map((s) => <option key={s} value={s}>Section {s}</option>)}
+          </select>
+          <select className="input" value={perfFilter} onChange={(e) => setPerfFilter(e.target.value)} style={{ width: "auto", minWidth: "150px", fontSize: "13px", padding: "7px 10px" }}>
+            <option value="">All Performance</option>
+            {["Excellent", "Very Good", "Good", "Average", "Needs Improvement", "At Risk"].map((p) => (
+              <option key={p} value={p}>{p}</option>
+            ))}
+          </select>
+          {hasActiveFilters && (
+            <button
+              onClick={() => { setSearch(""); setClassFilter(""); setSectionFilter(""); setPerfFilter(""); }}
+              style={{ display: "flex", alignItems: "center", gap: "4px", padding: "7px 10px", background: "none", border: "1px solid var(--color-border)", borderRadius: "8px", fontSize: "12px", color: "var(--color-text-muted)", cursor: "pointer" }}
+            >
+              <X size={13} /> Clear
+            </button>
+          )}
         </div>
-        <select
-          className="input"
-          value={classFilter}
-          onChange={(e) => setClassFilter(e.target.value)}
-          style={{ width: "auto", minWidth: "100px" }}
-        >
-          <option value="">All Classes</option>
-          {CLASSES.map((c) => <option key={c} value={c}>Class {c}</option>)}
-        </select>
-        <select
-          className="input"
-          value={sectionFilter}
-          onChange={(e) => setSectionFilter(e.target.value)}
-          style={{ width: "auto", minWidth: "90px" }}
-        >
-          <option value="">All Sections</option>
-          {SECTIONS.map((s) => <option key={s} value={s}>Section {s}</option>)}
-        </select>
-        <select
-          className="input"
-          value={perfFilter}
-          onChange={(e) => setPerfFilter(e.target.value)}
-          style={{ width: "auto", minWidth: "140px" }}
-        >
-          <option value="">All Performance</option>
-          {["Excellent", "Very Good", "Good", "Average", "Needs Improvement", "At Risk"].map((p) => (
-            <option key={p} value={p}>{p}</option>
-          ))}
-        </select>
       </div>
 
-      {/* Table */}
+      {/* Table container — horizontally scrollable */}
       <div className="table-container" style={{ background: "white" }}>
         {loading ? (
           <TableSkeleton rows={6} />
@@ -205,38 +203,28 @@ export function StudentsContent({ isAdmin }: { isAdmin: boolean }) {
             <div style={{ fontSize: "48px", marginBottom: "12px", color: "var(--color-border)" }}>&#128269;</div>
             <h3 style={{ fontWeight: 700, color: "var(--color-text-dark)", marginBottom: "6px" }}>No students found</h3>
             <p style={{ color: "var(--color-text-muted)", fontSize: "14px" }}>
-              {isAdmin ? "Add your first student to start tracking progress." : "No students match your filters."}
+              {hasActiveFilters ? "Try adjusting your filters or search term." : isAdmin ? "Add your first student to start tracking progress." : "No students available."}
             </p>
           </div>
         ) : (
-          <table>
+          <table style={{ minWidth: "700px" }}>
             <thead>
               <tr>
                 <th onClick={() => handleSort("rollNumber")} style={{ cursor: "pointer", userSelect: "none" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                    Roll No <SortIcon field="rollNumber" />
-                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>Roll No <SortIcon field="rollNumber" /></div>
                 </th>
                 <th onClick={() => handleSort("fullName")} style={{ cursor: "pointer", userSelect: "none" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                    Student <SortIcon field="fullName" />
-                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>Student <SortIcon field="fullName" /></div>
                 </th>
                 <th>Class</th>
                 <th onClick={() => handleSort("homeworkCompletion")} style={{ cursor: "pointer", userSelect: "none" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                    Homework % <SortIcon field="homeworkCompletion" />
-                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>Homework % <SortIcon field="homeworkCompletion" /></div>
                 </th>
                 <th onClick={() => handleSort("testAverage")} style={{ cursor: "pointer", userSelect: "none" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                    Test Avg <SortIcon field="testAverage" />
-                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>Test Avg <SortIcon field="testAverage" /></div>
                 </th>
                 <th onClick={() => handleSort("overallScore")} style={{ cursor: "pointer", userSelect: "none" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                    Overall <SortIcon field="overallScore" />
-                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>Overall <SortIcon field="overallScore" /></div>
                 </th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -249,15 +237,20 @@ export function StudentsContent({ isAdmin }: { isAdmin: boolean }) {
                     <span style={{ fontWeight: 600, color: "var(--color-primary)" }}>#{s.rollNumber}</span>
                   </td>
                   <td>
-                    <div style={{ fontWeight: 600, color: "var(--color-text-dark)" }}>{s.fullName}</div>
-                    {s.gender && <div style={{ fontSize: "12px", color: "#94a3b8" }}>{s.gender}</div>}
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                      <StudentInitials name={s.fullName} />
+                      <div>
+                        <div style={{ fontWeight: 600, color: "var(--color-text-dark)", whiteSpace: "nowrap" }}>{s.fullName}</div>
+                        {s.gender && <div style={{ fontSize: "12px", color: "#94a3b8" }}>{s.gender}</div>}
+                      </div>
+                    </div>
                   </td>
                   <td>
-                    <span style={{ background: "rgba(109, 40, 217, 0.1)", color: "var(--color-primary)", padding: "2px 8px", borderRadius: "6px", fontSize: "13px", fontWeight: 600 }}>
+                    <span style={{ background: "rgba(109,40,217,0.1)", color: "var(--color-primary)", padding: "2px 8px", borderRadius: "6px", fontSize: "13px", fontWeight: 600, whiteSpace: "nowrap" }}>
                       {s.className}-{s.section}
                     </span>
                   </td>
-                  <td style={{ minWidth: "140px" }}>
+                  <td style={{ minWidth: "130px" }}>
                     {s.homeworkRecords.length === 0 ? (
                       <span style={{ color: "#94a3b8", fontSize: "13px" }}>No data</span>
                     ) : (
@@ -278,21 +271,24 @@ export function StudentsContent({ isAdmin }: { isAdmin: boolean }) {
                     <PerformanceBadge status={s.status} />
                   </td>
                   <td>
-                    <div style={{ display: "flex", gap: "6px" }}>
-                      <Link href={`/students/${s.id}`} style={{ display: "inline-flex", alignItems: "center", padding: "5px 10px", background: "var(--color-bg-app)", border: "1px solid var(--color-border)", borderRadius: "6px", color: "#374151", fontSize: "13px", fontWeight: 500, gap: "4px", textDecoration: "none" }}>
+                    <div style={{ display: "flex", gap: "5px", flexWrap: "nowrap" }}>
+                      <Link
+                        href={`/students/${s.id}`}
+                        style={{ display: "inline-flex", alignItems: "center", padding: "5px 9px", background: "var(--color-bg-app)", border: "1px solid var(--color-border)", borderRadius: "6px", color: "#374151", fontSize: "13px", fontWeight: 500, gap: "4px", textDecoration: "none", whiteSpace: "nowrap" }}
+                      >
                         <Eye size={14} /> View
                       </Link>
                       {isAdmin && (
                         <>
                           <button
                             onClick={() => { setEditStudent(s); setShowModal(true); }}
-                            style={{ display: "inline-flex", alignItems: "center", padding: "5px 10px", background: "rgba(109, 40, 217, 0.1)", border: "1px solid #ddd6fe", borderRadius: "6px", color: "var(--color-primary)", fontSize: "13px", fontWeight: 500, gap: "4px", cursor: "pointer" }}
+                            style={{ display: "inline-flex", alignItems: "center", padding: "5px 9px", background: "rgba(109,40,217,0.1)", border: "1px solid #ddd6fe", borderRadius: "6px", color: "var(--color-primary)", fontSize: "13px", fontWeight: 500, gap: "4px", cursor: "pointer", whiteSpace: "nowrap" }}
                           >
                             <Pencil size={14} /> Edit
                           </button>
                           <button
                             onClick={() => setDeleteId(s.id)}
-                            style={{ display: "inline-flex", alignItems: "center", padding: "5px 10px", background: "rgba(239, 68, 68, 0.1)", border: "1px solid rgba(239, 68, 68, 0.2)", borderRadius: "6px", color: "var(--color-danger)", fontSize: "13px", fontWeight: 500, gap: "4px", cursor: "pointer" }}
+                            style={{ display: "inline-flex", alignItems: "center", padding: "5px 8px", background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: "6px", color: "var(--color-danger)", fontSize: "13px", cursor: "pointer" }}
                           >
                             <Trash2 size={14} />
                           </button>
