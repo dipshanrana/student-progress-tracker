@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
@@ -40,11 +41,21 @@ export function Sidebar({ open, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { data: session } = useSession();
   const isAdmin = session?.user?.role === "ADMIN";
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
+    checkDesktop();
+    window.addEventListener("resize", checkDesktop);
+    return () => window.removeEventListener("resize", checkDesktop);
+  }, []);
+
+  const isVisible = isDesktop || open;
 
   return (
     <>
       {/* Mobile overlay */}
-      {open && (
+      {!isDesktop && open && (
         <div
           style={{
             position: "fixed",
@@ -69,10 +80,9 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           display: "flex",
           flexDirection: "column",
           zIndex: 50,
-          transform: open ? "translateX(0)" : "translateX(-100%)",
+          transform: isVisible ? "translateX(0)" : "translateX(-100%)",
           transition: "transform 0.25s ease",
         }}
-        className="lg:translate-x-0"
       >
         {/* Logo */}
         <div
@@ -107,19 +117,20 @@ export function Sidebar({ open, onClose }: SidebarProps) {
               <div style={{ color: "#64748b", fontSize: "11px", fontWeight: 500 }}>Student Portal</div>
             </div>
           </div>
-          <button
-            onClick={onClose}
-            aria-label="Close sidebar"
-            style={{
-              background: "none",
-              border: "none",
-              color: "#94a3b8",
-              cursor: "pointer",
-            }}
-            className="lg:hidden"
-          >
-            <X size={20} />
-          </button>
+          {!isDesktop && (
+            <button
+              onClick={onClose}
+              aria-label="Close sidebar"
+              style={{
+                background: "none",
+                border: "none",
+                color: "#94a3b8",
+                cursor: "pointer",
+              }}
+            >
+              <X size={20} />
+            </button>
+          )}
         </div>
 
         {/* User info */}
