@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import {
   LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
@@ -65,12 +65,12 @@ export function DashboardCharts({
                 testPerformanceChart.length > 0
                   ? testPerformanceChart
                   : [
-                      { name: "Jan", average: 40 },
-                      { name: "Feb", average: 65 },
-                      { name: "Mar", average: 50 },
-                      { name: "Apr", average: 70 },
-                      { name: "May", average: 60 },
-                      { name: "Jun", average: 78 },
+                      { name: "Jan", subject: "General", date: "2026-01-01", average: 40 },
+                      { name: "Feb", subject: "General", date: "2026-02-01", average: 65 },
+                      { name: "Mar", subject: "General", date: "2026-03-01", average: 50 },
+                      { name: "Apr", subject: "General", date: "2026-04-01", average: 70 },
+                      { name: "May", subject: "General", date: "2026-05-01", average: 60 },
+                      { name: "Jun", subject: "General", date: "2026-06-01", average: 78 },
                     ]
               }
               margin={{ top: 8, right: 10, left: -20, bottom: 0 }}
