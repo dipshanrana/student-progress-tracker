@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -49,7 +49,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           style={{
             position: "fixed",
             inset: 0,
-            background: "rgba(0,0,0,0.5)",
+            background: "rgba(15, 23, 42, 0.6)",
             zIndex: 40,
           }}
           onClick={onClose}
@@ -64,8 +64,8 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           left: 0,
           height: "100vh",
           width: "240px",
-          background: "linear-gradient(180deg, var(--color-text-dark) 0%, var(--color-text-dark) 100%)",
-          borderRight: "1px solid rgba(255,255,255,0.06)",
+          background: "#0f172a",
+          borderRight: "1px solid rgba(255,255,255,0.08)",
           display: "flex",
           flexDirection: "column",
           zIndex: 50,
@@ -77,34 +77,34 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         {/* Logo */}
         <div
           style={{
-            padding: "20px 16px 16px",
-            borderBottom: "1px solid rgba(255,255,255,0.06)",
+            padding: "20px 20px 18px",
+            borderBottom: "1px solid rgba(255,255,255,0.08)",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <div
               style={{
                 width: "36px",
                 height: "36px",
                 borderRadius: "10px",
-                background: "rgba(79,70,229,0.25)",
-                border: "1px solid rgba(79,70,229,0.4)",
+                background: "linear-gradient(135deg, #2563eb, #3b82f6)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                boxShadow: "0 2px 8px rgba(37, 99, 235, 0.3)",
                 flexShrink: 0,
               }}
             >
-              <GraduationCap size={20} color="var(--color-primary-light)" />
+              <GraduationCap size={20} color="#ffffff" />
             </div>
             <div>
-              <div style={{ color: "white", fontSize: "14px", fontWeight: 700, lineHeight: 1.2 }}>
-                SPTracker
+              <div style={{ color: "#ffffff", fontSize: "15px", fontWeight: 700, letterSpacing: "-0.01em" }}>
+                EduTracker
               </div>
-              <div style={{ color: "#475569", fontSize: "11px" }}>Student Progress</div>
+              <div style={{ color: "#64748b", fontSize: "11px", fontWeight: 500 }}>Student Portal</div>
             </div>
           </div>
           <button
@@ -125,11 +125,11 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         {/* User info */}
         <div
           style={{
-            padding: "14px 16px",
-            borderBottom: "1px solid rgba(255,255,255,0.04)",
+            padding: "16px 20px",
+            borderBottom: "1px solid rgba(255,255,255,0.06)",
             display: "flex",
             alignItems: "center",
-            gap: "10px",
+            gap: "12px",
           }}
         >
           <div
@@ -137,9 +137,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
               width: "36px",
               height: "36px",
               borderRadius: "50%",
-              background: isAdmin
-                ? "linear-gradient(135deg, var(--color-primary), var(--color-primary-light))"
-                : "linear-gradient(135deg, var(--color-secondary), #0284c7)",
+              background: isAdmin ? "#2563eb" : "#0284c7",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -154,7 +152,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           <div style={{ overflow: "hidden" }}>
             <div
               style={{
-                color: "var(--color-border)",
+                color: "#f8fafc",
                 fontSize: "13px",
                 fontWeight: 600,
                 whiteSpace: "nowrap",
@@ -167,8 +165,8 @@ export function Sidebar({ open, onClose }: SidebarProps) {
             <div
               style={{
                 fontSize: "11px",
-                color: isAdmin ? "var(--color-primary-light)" : "#38bdf8",
-                fontWeight: 600,
+                color: isAdmin ? "#60a5fa" : "#38bdf8",
+                fontWeight: 500,
               }}
             >
               {isAdmin ? "Administrator" : "Viewer"}
@@ -177,19 +175,19 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         </div>
 
         {/* Navigation */}
-        <nav style={{ flex: 1, padding: "12px 8px", overflow: "auto" }}>
+        <nav style={{ flex: 1, padding: "16px 12px", overflowY: "auto" }}>
           <p
             style={{
-              color: "#334155",
-              fontSize: "10px",
-              fontWeight: 700,
+              color: "#475569",
+              fontSize: "11px",
+              fontWeight: 600,
               textTransform: "uppercase",
-              letterSpacing: "0.08em",
+              letterSpacing: "0.05em",
               padding: "0 8px",
               marginBottom: "8px",
             }}
           >
-            Menu
+            Navigation
           </p>
           {navItems.map((item) => {
             const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
@@ -199,25 +197,14 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                 key={item.href}
                 href={item.href}
                 onClick={onClose}
+                className={`sidebar-link ${isActive ? "active" : ""}`}
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                  padding: "9px 12px",
-                  borderRadius: "8px",
-                  marginBottom: "2px",
-                  color: isActive ? "var(--color-primary-light)" : "var(--color-text-muted)",
-                  background: isActive ? "rgba(79,70,229,0.15)" : "transparent",
-                  borderLeft: isActive ? "3px solid var(--color-primary)" : "3px solid transparent",
-                  textDecoration: "none",
-                  fontSize: "14px",
-                  fontWeight: 500,
-                  transition: "all 0.15s ease",
+                  marginBottom: "4px",
                 }}
               >
                 <Icon size={18} />
                 <span style={{ flex: 1 }}>{item.label}</span>
-                {isActive && <ChevronRight size={14} />}
+                {isActive && <ChevronRight size={14} opacity={0.7} />}
               </Link>
             );
           })}
@@ -226,33 +213,20 @@ export function Sidebar({ open, onClose }: SidebarProps) {
             <>
               <p
                 style={{
-                  color: "#334155",
-                  fontSize: "10px",
-                  fontWeight: 700,
+                  color: "#475569",
+                  fontSize: "11px",
+                  fontWeight: 600,
                   textTransform: "uppercase",
-                  letterSpacing: "0.08em",
+                  letterSpacing: "0.05em",
                   padding: "16px 8px 8px",
                 }}
               >
-                Admin
+                Management
               </p>
               <Link
                 href="/settings"
                 onClick={onClose}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                  padding: "9px 12px",
-                  borderRadius: "8px",
-                  color: pathname === "/settings" ? "var(--color-primary-light)" : "var(--color-text-muted)",
-                  background: pathname === "/settings" ? "rgba(79,70,229,0.15)" : "transparent",
-                  borderLeft: pathname === "/settings" ? "3px solid var(--color-primary)" : "3px solid transparent",
-                  textDecoration: "none",
-                  fontSize: "14px",
-                  fontWeight: 500,
-                  transition: "all 0.15s ease",
-                }}
+                className={`sidebar-link ${pathname === "/settings" ? "active" : ""}`}
               >
                 <Settings size={18} />
                 <span>Settings</span>
@@ -262,31 +236,15 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         </nav>
 
         {/* Logout */}
-        <div style={{ padding: "12px 8px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <div style={{ padding: "16px 12px", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
           <button
             onClick={() => signOut({ callbackUrl: "/login" })}
+            className="sidebar-link"
             style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              padding: "9px 12px",
-              borderRadius: "8px",
-              color: "var(--color-text-muted)",
+              width: "100%",
               background: "transparent",
               border: "none",
-              cursor: "pointer",
-              width: "100%",
-              fontSize: "14px",
-              fontWeight: 500,
-              transition: "all 0.15s ease",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(239,68,68,0.1)";
-              e.currentTarget.style.color = "#f87171";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "transparent";
-              e.currentTarget.style.color = "var(--color-text-muted)";
+              color: "#94a3b8",
             }}
           >
             <LogOut size={18} />
