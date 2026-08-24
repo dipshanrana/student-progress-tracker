@@ -1,6 +1,6 @@
-﻿"use client";
+"use client";
 
-import { Menu, Bell } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useSession } from "next-auth/react";
 
 interface TopBarProps {
@@ -52,20 +52,6 @@ export function TopBar({ title, onMenuClick }: TopBarProps) {
       </div>
 
       <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-        <button
-          style={{
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            color: "var(--color-text-muted)",
-            position: "relative",
-            padding: "6px",
-            borderRadius: "8px",
-          }}
-        >
-          <Bell size={20} />
-        </button>
-
         <div
           style={{
             display: "flex",
