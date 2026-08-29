@@ -48,20 +48,41 @@ async function main() {
 
   console.log("✅ Users created");
 
-  // Create students
+  // Create students for Class 8, Section Lily
   const studentsData = [
-    { fullName: "Ramesh Sharma", rollNumber: "01", className: "10", section: "A", gender: "Male", guardianName: "Suresh Sharma", guardianPhone: "9800000001" },
-    { fullName: "Sita Thapa", rollNumber: "02", className: "10", section: "A", gender: "Female", guardianName: "Mohan Thapa", guardianPhone: "9800000002" },
-    { fullName: "Hari Adhikari", rollNumber: "03", className: "10", section: "A", gender: "Male", guardianName: "Krishna Adhikari", guardianPhone: "9800000003" },
-    { fullName: "Gita Poudel", rollNumber: "04", className: "10", section: "A", gender: "Female", guardianName: "Ram Poudel", guardianPhone: "9800000004" },
-    { fullName: "Binod Karki", rollNumber: "05", className: "10", section: "A", gender: "Male", guardianName: "Dhan Karki", guardianPhone: "9800000005" },
-    { fullName: "Sunita Rai", rollNumber: "06", className: "10", section: "B", gender: "Female", guardianName: "Bir Rai", guardianPhone: "9800000006" },
-    { fullName: "Prakash Tamang", rollNumber: "07", className: "10", section: "B", gender: "Male", guardianName: "Dawa Tamang", guardianPhone: "9800000007" },
-    { fullName: "Anita Shrestha", rollNumber: "08", className: "10", section: "B", gender: "Female", guardianName: "Gopal Shrestha", guardianPhone: "9800000008" },
-    { fullName: "Dipesh Magar", rollNumber: "09", className: "10", section: "B", gender: "Male", guardianName: "Jit Magar", guardianPhone: "9800000009" },
-    { fullName: "Priya Gurung", rollNumber: "10", className: "10", section: "B", gender: "Female", guardianName: "Man Gurung", guardianPhone: "9800000010" },
-    { fullName: "Arun Basnet", rollNumber: "01", className: "9", section: "A", gender: "Male", guardianName: "Til Basnet", guardianPhone: "9800000011" },
-    { fullName: "Kavita Limbu", rollNumber: "02", className: "9", section: "A", gender: "Female", guardianName: "Bir Limbu", guardianPhone: "9800000012" },
+    { fullName: "Alina Bhujel", rollNumber: "1", className: "8", section: "Lily", gender: "Female", guardianName: "Mahendra Bhujel", guardianPhone: "9846213228", address: "Arghau chowk" },
+    { fullName: "Amit Kumal", rollNumber: "2", className: "8", section: "Lily", gender: "Male", guardianName: "Mitra Bdr Kumal", guardianPhone: "9815152458", address: "Hariyali Tole" },
+    { fullName: "Anushka Purja", rollNumber: "3", className: "8", section: "Lily", gender: "Female", guardianName: "Dalsur Purja", guardianPhone: "9806724881", address: "Arghau chowk" },
+    { fullName: "Arpan Gurung", rollNumber: "4", className: "8", section: "Lily", gender: "Male", guardianName: "Kumar Gurung", guardianPhone: "9805804355", address: "Buddha Tole" },
+    { fullName: "Asbin Adhikari", rollNumber: "5", className: "8", section: "Lily", gender: "Male", guardianName: "Basudav Adhikari", guardianPhone: "9846744251", address: "Kharane" },
+    { fullName: "Ashim Khatri", rollNumber: "6", className: "8", section: "Lily", gender: "Male", guardianName: "Sandeep Khatri", guardianPhone: "9847732085", address: "Sakneri" },
+    { fullName: "Garima Basyal", rollNumber: "7", className: "8", section: "Lily", gender: "Female", guardianName: "Gobinda Basyal", guardianPhone: "9816150653", address: "Hariyali Tole" },
+    { fullName: "JENISHA GURUNG", rollNumber: "8", className: "8", section: "Lily", gender: "Female", guardianName: "Khum Bdr Gurung", guardianPhone: "9806693703", address: "Archale" },
+    { fullName: "Labish Bhandari", rollNumber: "9", className: "8", section: "Lily", gender: "Male", guardianName: "Lila Bhakta Bhandari", guardianPhone: "9846364586", address: "Talchowk Dharmakata" },
+    { fullName: "Lavya Rana", rollNumber: "10", className: "8", section: "Lily", gender: "Female", guardianName: "Krishna Bdr Rana", guardianPhone: "9817120692", address: "Kaligandaki" },
+    { fullName: "Mingma(Kristina) Doma Sherpa", rollNumber: "11", className: "8", section: "Lily", gender: "Female", guardianName: "Milan Sherpa", guardianPhone: "9763614261", address: "Kaligandaki" },
+    { fullName: "Namuna Sapkota", rollNumber: "12", className: "8", section: "Lily", gender: "Female", guardianName: "Bikash Sapkota", guardianPhone: "9849130572", address: "Jaruwa" },
+    { fullName: "Nikesh Bhandari", rollNumber: "13", className: "8", section: "Lily", gender: "Male", guardianName: "Shailendra Bhandari", guardianPhone: "9856080221", address: "Taalbeshi" },
+    { fullName: "Nimisha Sunar", rollNumber: "14", className: "8", section: "Lily", gender: "Female", guardianName: "Nishan Sunar", guardianPhone: "9805834519", address: "GMC Rithepani" },
+    { fullName: "Prajwol Adhikari", rollNumber: "15", className: "8", section: "Lily", gender: "Male", guardianName: "Bharat Raj Adhikari", guardianPhone: "9856032896", address: "Kharane" },
+    { fullName: "Prajwol Bhandari", rollNumber: "16", className: "8", section: "Lily", gender: "Male", guardianName: "Manoj Bhandari", guardianPhone: "9814121729", address: "Sakneri" },
+    { fullName: "Rabins Sapkota", rollNumber: "17", className: "8", section: "Lily", gender: "Male", guardianName: "Ramesh Sapkota", guardianPhone: "9804111990", address: "Begnastaal" },
+    { fullName: "Rajiv Acharya", rollNumber: "18", className: "8", section: "Lily", gender: "Male", guardianName: "Raju Acharya", guardianPhone: "9816635551", address: "Rakhi dada" },
+    { fullName: "Rehan B.K", rollNumber: "19", className: "8", section: "Lily", gender: "Male", guardianName: "Motibul B.K", guardianPhone: "9814165879", address: "Golipatan" },
+    { fullName: "Riyan Thapa", rollNumber: "20", className: "8", section: "Lily", gender: "Female", guardianName: "Saroj Thapa", guardianPhone: "9846038614", address: "Panathar" },
+    { fullName: "Sabin Poudel", rollNumber: "21", className: "8", section: "Lily", gender: "Male", guardianName: "Buddhi Nath Poudel", guardianPhone: "9816646583", address: "KaliGandaki" },
+    { fullName: "Samit Pun", rollNumber: "22", className: "8", section: "Lily", gender: "Male", guardianName: "Kesh Bahadur Pun", guardianPhone: "9846907719", address: "Kaligandaki" },
+    { fullName: "Sangam Pariyar", rollNumber: "23", className: "8", section: "Lily", gender: "Male", guardianName: "Ganesh Bdr Pariyar", guardianPhone: "9824106902", address: "Rithepani-27" },
+    { fullName: "Sangeet Lamichhane", rollNumber: "24", className: "8", section: "Lily", gender: "Male", guardianName: "Narayan Raj Lamichhane", guardianPhone: "9869380448", address: "Rakhi Dada" },
+    { fullName: "Shiny Pun", rollNumber: "25", className: "8", section: "Lily", gender: "Female", guardianName: "Kumar Pun", guardianPhone: "9866311349", address: "Jaruwa" },
+    { fullName: "Shishir Paudel", rollNumber: "26", className: "8", section: "Lily", gender: "Male", guardianName: "Narayan Paudel", guardianPhone: "9848249307", address: "Chemeki Tole rithepani" },
+    { fullName: "Sirish B.K.", rollNumber: "27", className: "8", section: "Lily", gender: "Male", guardianName: "Santosh B.K", guardianPhone: "9805867414", address: "Archale" },
+    { fullName: "Sophiva Sunar", rollNumber: "28", className: "8", section: "Lily", gender: "Female", guardianName: "Suraj Sunar", guardianPhone: "9803092036", address: "Talchowk" },
+    { fullName: "Srijan Lamichhane", rollNumber: "29", className: "8", section: "Lily", gender: "Male", guardianName: "Shree psd Lanichhane", guardianPhone: "9856065170", address: "Rakhi dada" },
+    { fullName: "Subarna Lamichhane", rollNumber: "30", className: "8", section: "Lily", gender: "Male", guardianName: "Surya Lamichhane", guardianPhone: "9856004555", address: "Kharane" },
+    { fullName: "Sushan Ramdam", rollNumber: "31", className: "8", section: "Lily", gender: "Male", guardianName: "Santosh Ramdam", guardianPhone: "9867661570", address: "Naya taalchowk" },
+    { fullName: "Sushil Kandel", rollNumber: "32", className: "8", section: "Lily", gender: "Male", guardianName: "Ram chandra Kandel", guardianPhone: "9847614086", address: "Hariyali Tole" },
+    { fullName: "Susmita Kandel", rollNumber: "33", className: "8", section: "Lily", gender: "Female", guardianName: "Ram chandra Kandel", guardianPhone: "9847614086", address: "Hariyali Tole" },
   ];
 
   const students = await Promise.all(
@@ -69,234 +90,17 @@ async function main() {
       prisma.student.create({
         data: {
           ...s,
-          admissionDate: new Date("2023-04-01"),
+          admissionDate: new Date("2024-04-01"),
         },
       })
     )
   );
 
-  console.log("✅ Students created");
+  console.log(`✅ Created ${students.length} students for Class 8 Lily`);
 
-  // Create homework assignments
-  const hw1 = await prisma.homework.create({
-    data: {
-      title: "Chapter 3 Exercises",
-      subject: "Mathematics",
-      description: "Complete exercises 3.1 to 3.5",
-      className: "10",
-      section: "A",
-      assignedDate: new Date("2026-08-10"),
-      dueDate: new Date("2026-08-12"),
-      createdById: admin.id,
-    },
-  });
+  console.log("🎉 Database seeded successfully with Class 8 Lily students (clean student records without test/homework dummy data)!");
 
-  const hw2 = await prisma.homework.create({
-    data: {
-      title: "Essay Writing",
-      subject: "English",
-      description: "Write a 500-word essay on environment",
-      className: "10",
-      section: "A",
-      assignedDate: new Date("2026-08-13"),
-      dueDate: new Date("2026-08-15"),
-      createdById: admin.id,
-    },
-  });
-
-  const hw3 = await prisma.homework.create({
-    data: {
-      title: "Science Lab Report",
-      subject: "Science",
-      description: "Write lab report for experiment #4",
-      className: "10",
-      section: "A",
-      assignedDate: new Date("2026-08-16"),
-      dueDate: new Date("2026-08-18"),
-      createdById: admin.id,
-    },
-  });
-
-  const hw4 = await prisma.homework.create({
-    data: {
-      title: "History Notes",
-      subject: "Social Studies",
-      description: "Read and summarize chapter 5",
-      className: "10",
-      section: "B",
-      assignedDate: new Date("2026-08-10"),
-      dueDate: new Date("2026-08-12"),
-      createdById: admin.id,
-    },
-  });
-
-  console.log("✅ Homework created");
-
-  // Create homework records for class 10A students
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const class10AStudents = students.filter((s: any) => s.className === "10" && s.section === "A");
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const class10BStudents = students.filter((s: any) => s.className === "10" && s.section === "B");
-
-  // hw1 records (class 10A)
-  const hw1Statuses = ["COMPLETED", "COMPLETED", "NOT_COMPLETED", "COMPLETED", "COMPLETED"] as const;
-  for (let i = 0; i < class10AStudents.length; i++) {
-    await prisma.homeworkRecord.create({
-      data: {
-        studentId: class10AStudents[i].id,
-        homeworkId: hw1.id,
-        status: hw1Statuses[i],
-      },
-    });
-  }
-
-  // hw2 records (class 10A)
-  const hw2Statuses = ["COMPLETED", "NOT_COMPLETED", "NOT_COMPLETED", "COMPLETED", "COMPLETED"] as const;
-  for (let i = 0; i < class10AStudents.length; i++) {
-    await prisma.homeworkRecord.create({
-      data: {
-        studentId: class10AStudents[i].id,
-        homeworkId: hw2.id,
-        status: hw2Statuses[i],
-      },
-    });
-  }
-
-  // hw3 records (class 10A)
-  const hw3Statuses = ["COMPLETED", "COMPLETED", "COMPLETED", "NOT_COMPLETED", "NOT_COMPLETED"] as const;
-  for (let i = 0; i < class10AStudents.length; i++) {
-    await prisma.homeworkRecord.create({
-      data: {
-        studentId: class10AStudents[i].id,
-        homeworkId: hw3.id,
-        status: hw3Statuses[i],
-      },
-    });
-  }
-
-  // hw4 records (class 10B)
-  const hw4Statuses = ["COMPLETED", "NOT_COMPLETED", "COMPLETED", "COMPLETED", "NOT_COMPLETED"] as const;
-  for (let i = 0; i < class10BStudents.length; i++) {
-    await prisma.homeworkRecord.create({
-      data: {
-        studentId: class10BStudents[i].id,
-        homeworkId: hw4.id,
-        status: hw4Statuses[i],
-      },
-    });
-  }
-
-  console.log("✅ Homework records created");
-
-  // Create tests
-  const test1 = await prisma.test.create({
-    data: {
-      name: "Unit Test 1",
-      subject: "Mathematics",
-      className: "10",
-      section: "A",
-      testDate: new Date("2026-07-20"),
-      fullMarks: 50,
-      description: "Chapters 1-3",
-      createdById: admin.id,
-    },
-  });
-
-  const test2 = await prisma.test.create({
-    data: {
-      name: "Unit Test 2",
-      subject: "Mathematics",
-      className: "10",
-      section: "A",
-      testDate: new Date("2026-08-05"),
-      fullMarks: 50,
-      description: "Chapters 4-6",
-      createdById: admin.id,
-    },
-  });
-
-  const test3 = await prisma.test.create({
-    data: {
-      name: "English Midterm",
-      subject: "English",
-      className: "10",
-      section: "A",
-      testDate: new Date("2026-07-25"),
-      fullMarks: 100,
-      description: "Mid-term examination",
-      createdById: admin.id,
-    },
-  });
-
-  const test4 = await prisma.test.create({
-    data: {
-      name: "Science Quiz",
-      subject: "Science",
-      className: "10",
-      section: "B",
-      testDate: new Date("2026-08-10"),
-      fullMarks: 25,
-      description: "Chapters 1-2 quiz",
-      createdById: admin.id,
-    },
-  });
-
-  console.log("✅ Tests created");
-
-  // Test results for class 10A
-  const test1Marks = [45, 38, 30, 42, 35];
-  const test2Marks = [48, 40, 32, 44, 38];
-  const test3Marks = [85, 72, 60, 78, 68];
-
-  for (let i = 0; i < class10AStudents.length; i++) {
-    await prisma.testResult.create({
-      data: { testId: test1.id, studentId: class10AStudents[i].id, obtainedMarks: test1Marks[i] },
-    });
-    await prisma.testResult.create({
-      data: { testId: test2.id, studentId: class10AStudents[i].id, obtainedMarks: test2Marks[i] },
-    });
-    await prisma.testResult.create({
-      data: { testId: test3.id, studentId: class10AStudents[i].id, obtainedMarks: test3Marks[i] },
-    });
-  }
-
-  // Test results for class 10B
-  const test4Marks = [22, 18, 20, 23, 15];
-  for (let i = 0; i < class10BStudents.length; i++) {
-    await prisma.testResult.create({
-      data: { testId: test4.id, studentId: class10BStudents[i].id, obtainedMarks: test4Marks[i] },
-    });
-  }
-
-  console.log("✅ Test results created");
-
-  // Add remarks
-  await prisma.studentRemark.create({
-    data: {
-      studentId: students[0].id,
-      remark: "Ramesh is performing excellently in Mathematics. Keep up the great work!",
-      createdById: admin.id,
-    },
-  });
-
-  await prisma.studentRemark.create({
-    data: {
-      studentId: students[2].id,
-      remark: "Hari needs to focus more on completing homework assignments regularly.",
-      createdById: admin.id,
-    },
-  });
-
-  await prisma.studentRemark.create({
-    data: {
-      studentId: students[1].id,
-      remark: "Sita has shown good improvement in English. Needs to work on Math.",
-      createdById: admin.id,
-    },
-  });
-
-  console.log("✅ Remarks created");
-  console.log("🎉 Database seeded successfully!");
+  console.log("🎉 Database seeded successfully with Class 8 Lily students!");
   console.log(`\nAdmin: ${adminEmail} / ${adminPassword}`);
   console.log(`Viewer: ${viewerEmail} / ${viewerPassword}`);
 }
