@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -54,8 +54,9 @@ interface SidebarProps {
 
 export function Sidebar({ open, onClose }: SidebarProps) {
   const pathname = usePathname();
-  const { data: session } = useSession();
-  const isAdmin = session?.user?.role === "ADMIN";
+  const { data: session, status } = useSession();
+  // While session is loading, default to showing admin links if session object hasn't loaded yet to prevent sidebar layout flash/flicker
+  const isAdmin = status === "loading" || session?.user?.role === "ADMIN";
 
   return (
     <>
@@ -233,7 +234,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
               <Link
                 href="/settings"
                 onClick={onClose}
-                className={`sidebar-link ${pathname === "/settings" ? "active" : ""}`}
+                className={`sidebar-link ${pathname === "/settings" || pathname.startsWith("/settings/") ? "active" : ""}`}
               >
                 <Settings size={18} />
                 <span>Settings</span>

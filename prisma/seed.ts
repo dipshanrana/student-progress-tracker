@@ -98,9 +98,147 @@ async function main() {
 
   console.log(`✅ Created ${students.length} students for Class 8 Lily`);
 
-  console.log("🎉 Database seeded successfully with Class 8 Lily students (clean student records without test/homework dummy data)!");
+  // 1. Scientific Measurement (Completed by all)
+  const hw1 = await prisma.homework.create({
+    data: {
+      title: "Scientific Measurement",
+      subject: "Science",
+      description: "Scientific measurement exercises and lab notes",
+      className: "8",
+      section: "Lily",
+      assignedDate: new Date("2026-08-15"),
+      dueDate: new Date("2026-08-20"),
+      createdById: admin.id,
+    },
+  });
 
-  console.log("🎉 Database seeded successfully with Class 8 Lily students!");
+  for (const student of students) {
+    await prisma.homeworkRecord.create({
+      data: {
+        studentId: student.id,
+        homeworkId: hw1.id,
+        status: "COMPLETED",
+      },
+    });
+  }
+
+  // 2. Force and Motion (Chapter Question) - Completed ONLY by Riyan Thapa
+  const hw2 = await prisma.homework.create({
+    data: {
+      title: "Force and Motion (Chapter Question)",
+      subject: "Science",
+      description: "Solve chapter end questions for Force and Motion",
+      className: "8",
+      section: "Lily",
+      assignedDate: new Date("2026-08-21"),
+      dueDate: new Date("2026-08-25"),
+      createdById: admin.id,
+    },
+  });
+
+  for (const student of students) {
+    await prisma.homeworkRecord.create({
+      data: {
+        studentId: student.id,
+        homeworkId: hw2.id,
+        status: student.fullName.toLowerCase().includes("riyan thapa") ? "COMPLETED" : "NOT_COMPLETED",
+      },
+    });
+  }
+
+  // 3. Force and Motion (Numerical / Exercise) - Completed by ALL
+  const hw3 = await prisma.homework.create({
+    data: {
+      title: "Force and Motion",
+      subject: "Science",
+      description: "Force and motion exercises",
+      className: "8",
+      section: "Lily",
+      assignedDate: new Date("2026-08-26"),
+      dueDate: new Date("2026-08-28"),
+      createdById: admin.id,
+    },
+  });
+
+  for (const student of students) {
+    await prisma.homeworkRecord.create({
+      data: {
+        studentId: student.id,
+        homeworkId: hw3.id,
+        status: "COMPLETED",
+      },
+    });
+  }
+
+  console.log("✅ All 3 homework assignments created successfully!");
+
+  // Create Test: Scientific Measurement (Full Marks: 40)
+  const test1 = await prisma.test.create({
+    data: {
+      name: "Scientific Measurement Test",
+      subject: "Science",
+      className: "8",
+      section: "Lily",
+      testDate: new Date("2026-08-28"),
+      fullMarks: 40,
+      description: "First lesson test result on Scientific Measurement (Out of 40)",
+      createdById: admin.id,
+    },
+  });
+
+  // Marks map from handwritten sheet
+  const testMarksByName: Record<string, number> = {
+    "rajiv acharya": 20,
+    "ashim khatri": 35,
+    "riyan thapa": 37,
+    "asbin adhikari": 32,
+    "sushil kandel": 33,
+    "mingma(kristina) doma sherpa": 30,
+    "sabin poudel": 32,
+    "srijan lamichhane": 23,
+    "shishir paudel": 17,
+    "subarna lamichhane": 21,
+    "nikesh bhandari": 28,
+    "garima basyal": 25,
+    "anushka purja": 23,
+    "labish bhandari": 23,
+    "jenisha gurung": 30,
+    "sophiva sunar": 22, // listed as Sofia B.K / Sophiva
+    "sirish b.k.": 27,
+    "arpan gurung": 26,
+    "rehan b.k": 19, // listed as Rehan Khan / Rehan B.K
+    "prajwol adhikari": 33,
+    "prajwol bhandari": 29,
+    "namuna sapkota": 35,
+    "susmita kandel": 37,
+    "lavya rana": 32, // marked as 37 -> 32
+    "alina bhujel": 25,
+    "samit pun": 25,
+  };
+
+  for (const student of students) {
+    const sNameLower = student.fullName.toLowerCase();
+    // find matching key
+    let marks: number | null = null;
+    for (const [key, val] of Object.entries(testMarksByName)) {
+      if (sNameLower.includes(key) || key.includes(sNameLower)) {
+        marks = val;
+        break;
+      }
+    }
+
+    if (marks !== null) {
+      await prisma.testResult.create({
+        data: {
+          testId: test1.id,
+          studentId: student.id,
+          obtainedMarks: marks,
+        },
+      });
+    }
+  }
+
+  console.log("✅ Scientific Measurement Test Results created!");
   console.log(`\nAdmin: ${adminEmail} / ${adminPassword}`);
   console.log(`Viewer: ${viewerEmail} / ${viewerPassword}`);
 }
